@@ -20,12 +20,12 @@ class User(db.Model):
     email = db.Column(db.String, unique=True)
     password = db.Column(db.String)
 
-    user_top_places = db.relationship('User_Top_Place', back_populates="users") 
-    notes = db.relationship('User_Note', back_populates="note_by_user") 
-
-
+    top_places = db.relationship('User_Top_Place', back_populates="users") #Connects to "users" in User_Top_Place Class
+    notes = db.relationship('User_Note', back_populates="user") #Connects to "user" in User_Note Class
+    
+ 
     def __repr__(self):
-        return f"<User -- user_id={self.user_id}, Username username={self.username}, email={self.email}, password={self.password}>"
+        return f"<User -- user_id={self.user_id}, username={self.username}, email={self.email}, password={self.password}>"
 
 
 #Create Place Class
@@ -76,11 +76,11 @@ class Place(db.Model):
     landscape_photography_allowed = db.Column(db.Boolean)
     season_to_visit = db.Column(db.String)
 
-    user_top_places = db.relationship('User_Top_Place', back_populates="places") 
-    place_note = db.relationship('User_Note', back_populates="user_note_place") 
+    top_places = db.relationship('User_Top_Place', back_populates="places") #Connects to "places" in User_Top_Place Class
+    note = db.relationship('User_Note', back_populates="place") #Connects to "place" in User_Note Class
 
     def __repr__(self):
-        return f"<Place -- place_name={self.place_name}, -- Park? is_park={self.is_park}, -- Lake? is_lake={self.is_lake}>"
+        return f"<Place -- place_id={self.place_id}, place_name={self.place_name}, is_park={self.is_park}, is_lake={self.is_lake}>"
 
 
 #Create User Top Place Class
@@ -93,11 +93,11 @@ class User_Top_Place(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     place_id = db.Column(db.Integer, db.ForeignKey('places.place_id'))
 
-    users = db.relationship('User', back_populates="user_top_places") 
-    places = db.relationship('Place', back_populates="user_top_places") 
+    users = db.relationship('User', back_populates="top_places") #Connects to "top_places" in User Class
+    places = db.relationship('Place', back_populates="top_places") #Connects to "top_places" in Place Class
 
     def __repr__(self):
-        return f"<User Top Place -- user_id={self.user_id}, place_id={self.place_id}>"
+        return f"<User Top Place -- user_top_place_id={self.user_top_place_id}>"
 
 
 #Create User Note Class
@@ -111,11 +111,12 @@ class User_Note(db.Model):
     place_id = db.Column(db.Integer, db.ForeignKey('places.place_id'))
     note = db.Column(db.Text)
 
-    note_by_user = db.relationship('User', back_populates="notes") 
-    user_note_place = db.relationship('Place', back_populates="place_note") 
+ 
+    user = db.relationship('User', back_populates="notes") #Connects to "notes" in User Class
+    place = db.relationship('Place', back_populates="note") #Connects to "note" in Place Class
 
     def __repr__(self):
-        return f"<User Note -- user_id={self.user_id}, place_id={self.place_id}>"
+        return f"<User Note -- note_id={self.note_id}, note={self.note}>"
 
 
 
@@ -135,5 +136,5 @@ if __name__ == "__main__":
     #If program outout gets to be too much, call connect_to_db(app, echo=False)
     #This will tell SQLAlchemy not to print out every query it executes
 
-    connect_to_db(app)  
+    connect_to_db(app, echo=False)  
 
