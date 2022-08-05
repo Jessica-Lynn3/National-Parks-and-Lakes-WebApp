@@ -1,0 +1,52 @@
+[
+    {
+        "id": "4324B2B4-D1A3-497F-8E6B-27171FAE4DB2",
+        "parkCode": "yose",
+        "fullName": "Yosemite National Park"
+    },
+    {
+        "id": "126A6227-E39F-44F4-A279-B1EA257CBCDA",
+        "parkCode": "muwo",
+        "fullName": "Muir Woods National Monument"
+    },
+    {
+        "id": "B39C368F-CB27-49EC-B2A9-E6C1552430FB",
+        "parkCode": "cali",
+        "fullName": "California National Historic Trail"
+    },
+    {
+        "id": "A0125F49-080E-4292-BD91-C1FA1657F547",
+        "parkCode": "poex",
+        "fullName": "Pony Express National Historic Trail"
+    },
+    {
+        "id": "11E73438-0CCC-4441-A76A-1995F67F2D89",
+        "parkCode": "kefj",
+        "fullName": "Kenai Fjords National Park"
+    },
+    {
+        "id": "7E5A693C-2F63-44FD-B791-31FC8B8B6285",
+        "parkCode": "seki",
+        "fullName": "Sequoia & Kings Canyon National Parks"
+    },
+    {
+        "id": "739AFEBE-BF00-4A3E-A369-85E74F6E6739",
+        "parkCode": "slbe",
+        "fullName": "Sleeping Bear Dunes National Lakeshore"
+    },
+    {
+        "id": "8D803E2F-FB28-4DC3-9EDC-7FDAE185C092",
+        "parkCode": "piro",
+        "fullName": "Pictured Rocks National Lakeshore"
+    },
+    {
+        "id": "041B325C-A34F-4027-8E41-1DF3F9A1D799",
+        "parkCode": "redw",
+        "fullName": "Redwood National and State Parks"
+    },
+    {
+        "id": "4BE453C2-6527-484F-90D6-98057901EBDF",
+        "parkCode": "noco",
+        "fullName": "North Country National Scenic Trail"
+    }
+]
