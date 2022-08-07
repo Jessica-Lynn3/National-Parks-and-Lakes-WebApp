@@ -1,14 +1,17 @@
-from flask import Flask, jsonify, render_template, redirect, flash, session
+from flask import Flask, render_template, redirect, flash, session
 
-# from model import connect_to_db, db   #database in progress - will add this once db created
-# import crud                           #will import crud once db created
+from model import connect_to_db, db   
+import crud      
+import parks                     
 
 from jinja2 import StrictUndefined
 
+
 app = Flask(__name__)
-app.secret_key = 'secret'  #will modify this later
+app.secret_key = 'SECRET_SECRET_SECRET'  
 
 app.jinja_env.undefined = StrictUndefined
+
 
 #Routes and View Functions below
 
@@ -47,11 +50,15 @@ def user_log_out():
     return render_template("logged-out.html")
 
 
-@app.route("/place-page") #this will be implemented more later (want to pass in place_id in url)
-def show_place_page():
-    """ Shows the page for an individual place (a park or a lake). """
+@app.route("/place-page/<parkCode>")
+def show_place_page(parkCode):
+    """ Shows the info for an individual park using its parkCode. """
 
-    return render_template("place-page.html")
+    park = parks.get_park_details_by_park_code(parkCode)
+    print(park)
+
+    return render_template("place-page.html",
+                            display_park=park)
 
 
 @app.route("/search-results")
@@ -65,7 +72,10 @@ def show_search_results():
 def show_user_dashboard():
     """ Shows the user's dashboard. """
 
-    return render_template("user-dashboard.html")
+    park_list = parks.get_park_info_for_cards()
+
+    return render_template("user-dashboard.html",
+                            park_list=park_list)
 
 
 @app.route("/user-top-places")
@@ -77,5 +87,5 @@ def show_users_top_places():
 
 
 if __name__ == '__main__':
-    # connect_to_db(app)    #will add this once database created
+    connect_to_db(app)    
     app.run(host='0.0.0.0', debug=True)
