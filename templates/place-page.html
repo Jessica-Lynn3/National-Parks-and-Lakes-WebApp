@@ -1,6 +1,23 @@
 {% extends 'base.html' %}
-{% block title %}National Parks and Lakes App - (Park or lake name) {% endblock %}
+{% block title %}National Parks App - Park Details {% endblock %}
 
 {% block body %}  
-    This is a page for an individual park or lake
+    <h3>This is a page for an individual park</h3>
+
+    <div id = "park-basic-details" class ="row"></div>
+    <label for="park-basic-details"></label>
+
+            <div class = "park-details">
+                <label for="park-details"></label>
+                    <div class="card-body-for-park-details">
+                        <h5> {{ park_info['fullName'] }} </h5>
+                        <p> Website: {{ park_info['url'] }} </p>
+                        <p> Located in these States: {{ park_info['states'] }}</p>
+                        <p> Description: {{ park_info['description'] }}</p>
+                        <p> Latitude-Longitude: {{ park_info['latLong'] }}</p>
+                    </div>
+            </div>
+
+    </div>  
+
 {% endblock %}

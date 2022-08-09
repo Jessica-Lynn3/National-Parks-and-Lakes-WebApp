@@ -2,5 +2,27 @@
 {% block title %}National Parks and Lakes App - User Dashboard{% endblock %}
 
 {% block body %}  
-    This is the User Dashboard Page
+    
+    <h3>This is the User Dashboard Page</h3>
+
+    <!-- show all parks -->
+
+    <h2>National Parks</h2>
+
+    <div id = "park-cards" class ="row"></div>
+        <label for="park-cards"></label>
+            {% for park in park_data %}  
+
+                <div class = "park-card ">
+                    <label for="park-card"></label>
+                        <div class="card-body">
+                            <h5> {{ park['fullName'] }} </h5>
+                            <img src="{{ image_url }}">
+                            <a href="/place-page/{{ park['parkCode'] }}">Explore this park's details</a>
+                        </div>
+                </div>
+
+            {% endfor %}  
+    </div>  
+        
 {% endblock %}
