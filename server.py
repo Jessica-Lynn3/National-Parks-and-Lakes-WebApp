@@ -60,15 +60,9 @@ def show_user_dashboard():
     """ Shows the user's dashboard. """
 
     park_data = parks.get_park_info_for_cards()
-    # print(park_data)
-    
-    image_url = park_data[0].get('images')[0]['url']
-    print(image_url)
-    print('******************')
 
     return render_template("user-dashboard.html",
-                            park_data=park_data,
-                            image_url=image_url)
+                            park_data=park_data)
 
 
 
