@@ -14,48 +14,51 @@ all_parks_res = requests.get(parks, params=all_parks_payload, headers=HEADERS)
     #<class 'requests.models.Response'>
 
 data = all_parks_res.json()
-# print(type(data))   #dictionary
+# print(type(data))   #data is a dictionary
 
-find_total = data['total']
-# print(find_total)   #468 parks total
+parks = data['data']
+# print(type(park_data)) #parks is a list of dictionaries
 
-# get_keys = data.keys()
-# print(get_keys) 
-    #dict_keys(['total', 'limit', 'start', 'data'])
+park_designations = ['National Park', 'National Parks', 'National Scenic Trail', 
+                        'National Lakeshore', 'National Seashore', 
+                        'National Park & Preserve','National Preserve', 
+                        'Wild River', 'National River', 'National Recreation Area', 
+                        'National and State Park']
 
-park_data = data['data']
-# print(type(park_data)) #list 
+park_data = []  #park_data is a list of dictionaries
+
+for park in parks:   #a park is one dictionary
+    designation = park['designation']
+    if designation in park_designations:
+        park_data.append(park)
+        
+# print(len(park_data))
 # print(park_data)
 
 
 def get_park_info_for_cards():
-    """ Makes request to NPS API and returns each park's 
-    parkCode, fullName, and image url """
-
-    park_data = data['data']
+    """ Returns park data- a list of dictionaries 
+    (each dictionary is a park with its info) """
    
     return park_data
 
-#get_park_info_for_cards()
 
 
 def get_park_details_by_park_code(parkCode):
-    """ """
-
-    park_data = data['data']
+    """ Returns dataset about a park using its park code """
 
     park_dataset = {}
 
-    for i in park_data:
-        #for each dict in park_data
+    for park in park_data:
+        #for each park in park_data
         #get key
-        #set as parkcode as key - value is a dictionary with info I want
+        #set parkcode as key - value is a dictionary with info I want
    
-        park_dataset[i['parkCode']] = {'fullName': i['fullName'],
-                                        'url': i['url'],
-                                        'states': i['states'],
-                                        'description': i['description'],
-                                        'latLong': i['latLong']}
+        park_dataset[park['parkCode']] = {'fullName': park['fullName'],
+                                        'url': park['url'],
+                                        'states': park['states'],
+                                        'description': park['description'],
+                                        'latLong': park['latLong']}
 
 
     #print(park_dataset)
@@ -64,3 +67,23 @@ def get_park_details_by_park_code(parkCode):
 
 
 #get_park_details_by_park_code(parkCode='yose')
+
+
+
+def find_parks_by_state(state):
+    """ Returns parks and their info by one state location --
+    For example: state = 'CA' --> returns all CA parks and their info """
+
+    parks_by_state = {}
+
+    for park in park_data:
+        if state in park['states']:
+             parks_by_state[park['parkCode']] = {'fullName': park['fullName'],
+                                                    'parkCode': park['parkCode'],
+                                                    'url': park['url'],
+                                                    'states': park['states'],
+                                                    'description': park['description'],
+                                                    'latLong': park['latLong']}
+    
+    return parks_by_state
+
