@@ -18,4 +18,25 @@
     <label for="Nav Link to go back to User Dashboard"></label>
     <a href="/user-dashboard" class="button">Back to My Dashboard</a>
 
+    <br>
+    <br>
+    <br>
+
+    {% for park_name, park_data in parks_by_state.items() %}  
+    <div class = "park-card ">
+        <label for="park-card"></label>
+            <div class="card-body">
+                <h5>{{ park_name }}</h5>
+                <a href="/place-page/{{ park_data.get('parkCode') }}">Explore this park's details</a>
+                {% if park_data.get('images') %}
+                    <img src="{{ park_data['images'][0]['url'] }}">
+                {% else %}
+                    <img src="static/images/National-Park-Service-Logo.png">
+                {% endif %}
+            </div>
+    </div>
+
+    {% endfor %}  
+
+
 {% endblock %}

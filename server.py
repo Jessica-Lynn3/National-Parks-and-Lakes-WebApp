@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, flash, session
+from flask import Flask, render_template, redirect, request, flash, session
 
 from model import connect_to_db, db   
 import crud      
@@ -66,6 +66,15 @@ def show_user_dashboard():
 
 
 
+@app.route("/search-filter-page")
+def submit_search_filter():
+    """ Submits user input (state code) and returns parks within that state 
+    on the search results page """
+
+    return render_template("search-filter-page.html")
+
+
+
 @app.route("/place-page/<parkCode>")
 def show_place_page(parkCode):
     """ Shows the info for an individual park using its parkCode. """
@@ -85,7 +94,15 @@ def show_place_page(parkCode):
 def show_search_results():
     """ Shows the search results from Search Filter Feature. """
 
-    return render_template("search-results.html")
+    state = request.args.get("state")
+
+     # make sure input from form is turned into a string
+    state = str(state).upper()
+
+    parks_by_state = parks.find_parks_by_state(state)
+    print(parks_by_state)
+    
+    return render_template("search-results.html", parks_by_state=parks_by_state)
 
 
 

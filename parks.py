@@ -17,7 +17,7 @@ data = all_parks_res.json()
 # print(type(data))   #data is a dictionary
 
 parks = data['data']
-# print(type(park_data)) #parks is a list of dictionaries
+print(type(parks)) #parks is a list of dictionaries
 
 park_designations = ['National Park', 'National Parks', 'National Scenic Trail', 
                         'National Lakeshore', 'National Seashore', 
@@ -31,9 +31,8 @@ for park in parks:   #a park is one dictionary
     designation = park['designation']
     if designation in park_designations:
         park_data.append(park)
-        
-# print(len(park_data))
-# print(park_data)
+
+#print(type(park_data))
 
 
 def get_park_info_for_cards():
@@ -61,7 +60,6 @@ def get_park_details_by_park_code(parkCode):
                                         'latLong': park['latLong']}
 
 
-    #print(park_dataset)
 
     return park_dataset
 
@@ -78,12 +76,14 @@ def find_parks_by_state(state):
 
     for park in park_data:
         if state in park['states']:
-             parks_by_state[park['parkCode']] = {'fullName': park['fullName'],
-                                                    'parkCode': park['parkCode'],
-                                                    'url': park['url'],
-                                                    'states': park['states'],
-                                                    'description': park['description'],
-                                                    'latLong': park['latLong']}
-    
+            parks_by_state[park['fullName']] = {'parkCode': park['parkCode'],
+                                                'states': park['states'],
+                                                'images': park['images']}
+
     return parks_by_state
+
+# find_parks_by_state('MI')
+
+
+
 

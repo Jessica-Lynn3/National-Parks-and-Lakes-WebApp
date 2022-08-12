@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}National Parks and Lakes App - User Dashboard{% endblock %}
+
+{% block body %}  
+    
+    <h3>This is the Search Filter Page</h3>
+
+
+    <form action="/search-results" id="search-filter-form">
+        Search National Parks with Search Filters
+
+        Find National Parks that have these features
+        (Check the box next to the category you want to search)
+        <br>
+
+        <div>
+            <label for="parks-by-state-filter">Parks by State Code (Enter only one State Code per search -- Example: CA)</label>
+            <input type="text" name="state" id="user-selected-state">
+        </div>
+        <!-- <div>
+            <label for="parks-dog-friendly-trails-filter">Parks with Dog-Friendly Trails</label>
+            <input type="checkbox" name="dog-trails" value="dog-friendly-trails" id="dog-friendly-trails-filter">
+        </div> -->
+
+
+        <div>
+            <label for="Submit Button for Search Filter Form"></label>
+            <button type="submit">Submit Search</button>
+        </div>
+    </form>
+
+{% endblock %}
