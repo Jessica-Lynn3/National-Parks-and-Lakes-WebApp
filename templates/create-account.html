@@ -4,8 +4,19 @@
 {% block body %}  
     <h3>Create an Account on this Page</h3>
 
-    <label for="Submit Button to Create New Account">Create New Account</label>
-    <a href="/user-dashboard" class="button">Create My Account</a>
+    <label for="Form to Create New Account">Create New Account</label>
+    <form action="/login" method="POST">
+        <p>
+            Username <input type="text" name="'username">
+        </p>
+        <p>
+            Email <input type="text" name="email">
+        </p>
+        <p>
+            Password <input type="password" name="password">
+        </p>
+        <button type="submit">Create My Account</button>
+    </form>
 
     <br>
 
@@ -13,7 +24,8 @@
     <a href="/login" class="button">Go to User Log In</a>
 
     <br>
-    
+    <br>
+
     <label for="Nav Link to go back to Homepage"></label>
     <a href="/" class="button">Back to Homepage</a>
 

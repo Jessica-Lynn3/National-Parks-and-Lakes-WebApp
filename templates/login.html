@@ -4,9 +4,21 @@
 {% block body %}  
     <h3>Log In Page</h3>
 
-    <label for="Submit Button to Log In as Existing User"></label>
-    <a href="/user-dashboard" class="button">Log In</a>
+    <label for="Form to Log In as an Existing User"></label>
+    <form action="/user-dashboard" method="POST">
+        <p>
+            Username <input type="text" name="'username">
+        </p>
+        <p>
+            Email <input type="text" name="email">
+        </p>
+        <p>
+            Password <input type="password" name="password">
+        </p>
+        <button type="submit">Log In</button>
+    </form>
 
+    <br>
     <br>
 
     <label for="Nav Link Back to Homepage"></label>
