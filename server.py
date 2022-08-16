@@ -24,18 +24,59 @@ def display_homepage():
 
 
 @app.route("/create-account")
-def create_user_account():
-    """ Creates user account. """
+def display_create_account_page():
+    """ View Create Account Page. """
 
     return render_template("create-account.html")
 
 
 
-@app.route("/login")
-def user_login():
+@app.route("/create-account", methods=["POST"])
+def create_user_account():
+    """ Creates user account. """
+
+    username = request.form.get("username")
+    email = request.form.get("email")
+    password = request.form.get("password")
+
+    user = crud.get_user_by_email(email)
+
+    if user:
+        flash("Cannot create an account with that email.  Try again.")
+    else:
+        user = crud.create_user(username, email, password)
+        db.session.add(user)
+        db.session.commit()
+        flash("Account created!  Please log in.")
+
+    return render_template("login.html")
+
+
+
+@app.route("/login", methods=["GET"])
+def display_login_page():
     """ User log in. """
 
     return render_template("login.html")
+
+
+
+@app.route("/login", methods=["POST"])
+def user_login():
+    """ User log in. """
+
+    username = request.form.get("username")
+    email = request.form.get("email")
+    password = request.form.get("password")
+
+    user = crud.get_user_by_email(email)
+    if not user or user.password != password:
+        flash("The username, email or password you entered were incorrect.")
+    else:
+        session["username"] = user.username
+        flash(f"Welcome back, {user.username}")
+    
+    return redirect("/login")
 
 
 
@@ -56,6 +97,17 @@ def user_log_out():
 
 
 @app.route("/user-dashboard")
+def go_back_to_user_dashboard():
+    """ Shows the user's dashboard. """
+
+    park_data = parks.get_park_info_for_cards()
+
+    return render_template("user-dashboard.html",
+                            park_data=park_data)
+
+
+
+@app.route("/user-dashboard", methods=["POST"])
 def show_user_dashboard():
     """ Shows the user's dashboard. """
 
