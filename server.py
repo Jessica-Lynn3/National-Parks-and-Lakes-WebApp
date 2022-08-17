@@ -44,9 +44,7 @@ def create_user_account():
     if user:
         flash("Cannot create an account with that email.  Try again.")
     else:
-        user = crud.create_user(username, email, password)
-        db.session.add(user)
-        db.session.commit()
+        user = crud.create_user(username=username, email=email, password=password)
         flash("Account created!  Please log in.")
 
     return render_template("login.html")
