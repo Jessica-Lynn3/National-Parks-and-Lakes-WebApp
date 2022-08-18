@@ -74,7 +74,7 @@ def user_login():
         session["username"] = user.username
         flash(f"Welcome back, {user.username}")
     
-    return redirect("/login")
+    return redirect("/user-dashboard")
 
 
 
