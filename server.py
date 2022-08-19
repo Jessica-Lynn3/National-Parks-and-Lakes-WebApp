@@ -69,12 +69,12 @@ def user_login():
 
     user = crud.get_user_by_email(email)
     if not user or user.password != password:
-        flash("The username, email or password you entered were incorrect.")
+        flash("The username, email or password you entered were incorrect.  Try again")
+        return redirect("/login")
     else:
         session["username"] = user.username
         flash(f"Welcome back, {user.username}")
-    
-    return redirect("/user-dashboard")
+        return redirect("/user-dashboard")
 
 
 
@@ -90,6 +90,7 @@ def display_product_details():
 def user_log_out():
     """ User logs out of session and is told they are succesfully logged out. """
 
+    
     return render_template("logged-out.html")
 
 
@@ -97,6 +98,7 @@ def user_log_out():
 @app.route("/user-dashboard")
 def go_back_to_user_dashboard():
     """ Shows the user's dashboard. """
+
 
     park_data = parks.get_park_info_for_cards()
 
