@@ -13,6 +13,13 @@
 
 
     <body>
+
+        {% for message in get_flashed_messages() %}
+            <p class="flash-message">
+                {{ message }}
+            </p>
+        {% endfor %}
+        
         {% block body %}{% endblock %}
 
         {% block after_body %}{% endblock %}
