@@ -1,9 +1,9 @@
-from flask import Flask, render_template, redirect, request, flash, session
+from flask import Flask, render_template, redirect, request, flash, session, jsonify
 
 from model import connect_to_db, db   
 import crud      
 import parks                     
-
+import json
 from jinja2 import StrictUndefined
 
 
@@ -73,6 +73,7 @@ def user_login():
         return redirect("/login")
     else:
         session["username"] = user.username
+        session["user_id"] = user.user_id
         flash(f"Welcome back, {user.username}")
         return redirect("/user-dashboard")
 
@@ -131,14 +132,45 @@ def submit_search_filter():
 def show_place_page(parkCode):
     """ Shows the info for an individual park using its parkCode. """
 
-    park_dataset = parks.get_park_details_by_park_code(parkCode)
+    park_info = parks.get_park_details_by_park_code(parkCode)
+    print(park_info, "PARK DATASET")
 
-    if parkCode in park_dataset.keys():
-        park_info = park_dataset.get(parkCode, 0)
-
+    # Instead of using lines 139 - 143 below --> use lines 146 - 149:  
+    # return render_template("place-page.html",
+    #                        park_info=park_info,
+    #                        park_code=park_info.get("parkCode"),
+    #                        park_id=park_info.get("parkId"),
+    #                        park_name=park_info.get("fullName"))
+    
+    #Getting all the same info -- instead using json here -- this is cleaner:
     return render_template("place-page.html",
-                            park_dataset=park_dataset,
-                            park_info=park_info)
+                           park_info=park_info,
+                           json_park_info=json.dumps(park_info))
+
+
+
+@app.route("/bookmark-park", methods=["POST"])
+def bookmark_park():
+    park_info = json.loads(request.form.get('park-info'))
+    
+    if park_info:
+        park = crud.get_park(park_info['parkId'])
+    
+        if not park:
+            park = crud.create_park(park_info['parkId'], park_info['parkCode'], park_info['fullName'])
+    
+    if 'user_id' in session and session['user_id']:
+        user_id = session['user_id']
+        # implement a check if UserTopPark already contains an object with the user_id and the park.park_id
+        # if it does exist, then don't create a new one
+        # if it does exist, create a new one
+        user_park = crud.create_user_top_park(user_id, park.park_id)
+        print(f'Top Park {user_park.user_top_park_id} created!')
+        flash(f'Top Park {user_park.user_top_park_id} created!')
+    
+        return redirect(f'/place-page/{park_info["parkCode"]}')
+    return redirect('/user-dashboard')
+        
 
 
 
@@ -164,6 +196,17 @@ def show_users_top_places():
 
     return render_template("user-top-places.html")
 
+
+
+@app.route("/user-top-places", methods=["POST"])
+def save_top_park():
+    """ User can write note about why they want to visit park.
+    Park and Note are saved to User info in database """
+
+    #also need to display park 'card' like on user dashboard
+    #   will want to pass in park_data (route /user-dashboard )
+
+    return render_template("user-top-places.html")
 
 
 if __name__ == '__main__':
