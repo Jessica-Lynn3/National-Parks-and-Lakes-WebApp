@@ -10,7 +10,7 @@
     <br> 
 
     <label for="Nav Link to User Top Parks List"></label>
-    <a href="/user-top-places" class="button">My Top Parks to Visit List</a>
+    <a href="/user-top-places" class="button">Go to My Top Parks to Visit Page</a>
 
     <br>
 
@@ -18,13 +18,31 @@
     <a href="/user-dashboard" class="button">Back to My Dashboard</a>
 
     <br>
-
-    <label for="Nav Link to go back to Search Results"></label>
-    <a href="/search-results" class="button">Back to My Search Results</a>
-
     <br>
 
-    <img src="/static/images/Favorites-Icon-Empty.png" id="faveIcon">
+    
+    <form action="/bookmark-park" method="POST">
+        <label for="Bookmark image-icon and button to save as a Top Park">
+            {{ session['username'] }}, would you like to save 
+            {{ park_info['fullName'] }} to your Top Parks to Visit page?</label>
+        <br>
+        <img src="/static/images/Favorites-Icon-Empty-No-Text.png" id="faveIcon">
+        <br>
+        <input type="hidden" name="park-info" value="{{ json_park_info }}">
+        <button type="submit" id="save-as-top-park" class="button">Yes, Save to My Top Parks Page</button>
+    </form>
+    <br>
+
+    <br>
+    <br>
+    <label for="Form to write a note about park">
+            {{ session['username'] }}, write a note about why you want to visit this park: </label>
+    <!-- <form action="/place-page/<parkCode>" method="POST">
+        <textArea type="text" id="park-note" name="park-note"></textArea>
+        <br>
+        <button type="submit" id="save-park-note" class="button"> Save Note</button>
+    </form> -->
+    <br>
     <br>
 
     <div id = "park-basic-details" class ="row"></div>
@@ -42,7 +60,7 @@
             </div>
 
     </div>  
-
-    <script src="/static/js/place-page.js"></script>
+    <!-- <script src="/static/js/place-page.js"></script> -->
+    <!-- <script src="/static/js/user-note.js"></script> -->
 
 {% endblock %}
