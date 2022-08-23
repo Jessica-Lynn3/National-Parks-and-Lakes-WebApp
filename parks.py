@@ -17,7 +17,7 @@ data = all_parks_res.json()
 # print(type(data))   #data is a dictionary
 
 parks = data['data']
-print(type(parks)) #parks is a list of dictionaries
+#print(type(parks)) #parks is a list of dictionaries
 
 park_designations = ['National Park', 'National Parks', 'National Scenic Trail', 
                         'National Lakeshore', 'National Seashore', 
@@ -52,15 +52,14 @@ def get_park_details_by_park_code(parkCode):
         #for each park in park_data
         #get key
         #set parkcode as key - value is a dictionary with info I want
-   
-        park_dataset[park['parkCode']] = {'fullName': park['fullName'],
-                                        'url': park['url'],
-                                        'states': park['states'],
-                                        'description': park['description'],
-                                        'latLong': park['latLong']}
-
-
-
+        if park['parkCode'] == parkCode:
+            park_dataset = {'fullName': park['fullName'],
+                            'parkId': park['id'],
+                            'parkCode': park['parkCode'],
+                            'url': park['url'],
+                            'states': park['states'],
+                            'description': park['description'],
+                            'latLong': park['latLong']}
     return park_dataset
 
 
