@@ -54,6 +54,11 @@ def get_user_by_email(email):
     return User.query.filter(User.email==email).first()
 
 
+def get_park(park_external_id):
+    """ Return a park by its external id (from NPS API) """
+    
+    return Park.query.filter(Park.external_id==park_external_id).first()
+
 
 if __name__ == '__main__':
     from server import app
