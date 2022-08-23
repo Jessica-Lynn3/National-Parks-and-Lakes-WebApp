@@ -28,8 +28,9 @@
             <div class="card-body">
                 <h5>{{ park_name }}</h5>
                 <a href="/place-page/{{ park_data.get('parkCode') }}">Explore this park's details</a>
+                <br>
                 {% if park_data.get('images') %}
-                    <img src="{{ park_data['images'][0]['url'] }}">
+                    <img src="{{ park_data['images'][0]['url'] }}" class="park-image">
                 {% else %}
                     <img src="static/images/National-Park-Service-Logo.png">
                 {% endif %}
