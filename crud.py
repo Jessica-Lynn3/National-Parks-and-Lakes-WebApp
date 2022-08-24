@@ -60,6 +60,12 @@ def get_park(park_external_id):
     return Park.query.filter(Park.external_id==park_external_id).first()
 
 
+def get_user_top_park(user_id, park_id):
+    """ Return a user's Top Park by its user_id and park_id (park_id in database) """
+
+    return UserTopPark.query.filter( (UserTopPark.user_id==user_id) & (UserTopPark.park_id==park_id)).first()
+
+
 if __name__ == '__main__':
     from server import app
     connect_to_db(app)
