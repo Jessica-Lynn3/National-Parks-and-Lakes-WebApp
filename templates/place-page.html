@@ -23,11 +23,9 @@
     
     <form action="/bookmark-park" method="POST">
         <label for="Bookmark image-icon and button to save as a Top Park">
-            {{ session['username'] }}, would you like to save 
+            {{ session['username']|title }}, would you like to save 
             {{ park_info['fullName'] }} to your Top Parks to Visit page?</label>
-        <br>
-        <img src="/static/images/Favorites-Icon-Empty-No-Text.png" id="faveIcon">
-        <br>
+        <!-- <img src="/static/images/Favorites-Icon-Empty-No-Text.png" id="faveIcon"> -->
         <input type="hidden" name="park-info" value="{{ json_park_info }}">
         <button type="submit" id="save-as-top-park" class="button">Yes, Save to My Top Parks Page</button>
     </form>
@@ -36,12 +34,14 @@
     <br>
     <br>
     <label for="Form to write a note about park">
-            {{ session['username'] }}, write a note about why you want to visit this park: </label>
-    <!-- <form action="/place-page/<parkCode>" method="POST">
-        <textArea type="text" id="park-note" name="park-note"></textArea>
+            {{ session['username']|title }}, write a note about why 
+            you want to visit {{ park_info['fullName'] }}: </label>
+    <form action="/place-page/<parkCode>" method="POST">
+        <textArea input type="text" id="park-note" name="park-note"></textArea>
         <br>
-        <button type="submit" id="save-park-note" class="button"> Save Note</button>
-    </form> -->
+        
+        <input type="submit" id="save-park-note" class="button" value="save-note"> Save Note</input>
+    </form>
     <br>
     <br>
 
