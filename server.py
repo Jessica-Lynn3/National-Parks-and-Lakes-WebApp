@@ -74,7 +74,7 @@ def user_login():
     else:
         session["username"] = user.username
         session["user_id"] = user.user_id
-        flash(f"Welcome back, {user.username}")
+        flash(f"Welcome back, {user.username}".title())
         return redirect("/user-dashboard")
 
 
@@ -152,23 +152,31 @@ def show_place_page(parkCode):
 @app.route("/bookmark-park", methods=["POST"])
 def bookmark_park():
     park_info = json.loads(request.form.get('park-info'))
-    
+    print(park_info)
     if park_info:
         park = crud.get_park(park_info['parkId'])
-    
+        print(park)
         if not park:
             park = crud.create_park(park_info['parkId'], park_info['parkCode'], park_info['fullName'])
     
     if 'user_id' in session and session['user_id']:
         user_id = session['user_id']
+
         # implement a check if UserTopPark already contains an object with the user_id and the park.park_id
         # if it does exist, then don't create a new one
-        # if it does exist, create a new one
-        user_park = crud.create_user_top_park(user_id, park.park_id)
-        print(f'Top Park {user_park.user_top_park_id} created!')
-        flash(f'Top Park {user_park.user_top_park_id} created!')
+        # if it does not exist, create a new one
+
+        exists = crud.get_user_top_park(user_id, park.park_id)
+        print(exists, "LINE 170")
+        print(type(exists))
+
+        
+        if exists == None: 
+            user_park = crud.create_user_top_park(user_id, park.park_id)
+            print(f'Top Park {user_park.user_top_park_id} created!')
+            flash(f'Top Park {user_park.user_top_park_id} created!')
     
-        return redirect(f'/place-page/{park_info["parkCode"]}')
+        # return redirect(f'/place-page/{park_info["parkCode"]}')
     return redirect('/user-dashboard')
         
 
@@ -211,4 +219,4 @@ def save_top_park():
 
 if __name__ == '__main__':
     connect_to_db(app)    
-    app.run(host='0.0.0.0', debug=True)
+    app.run(debug=True)
