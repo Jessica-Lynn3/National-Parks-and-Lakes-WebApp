@@ -66,6 +66,19 @@ def get_user_top_park(user_id, park_id):
     return UserTopPark.query.filter( (UserTopPark.user_id==user_id) & (UserTopPark.park_id==park_id)).first()
 
 
+def get_user_note(user_id, park_id, note_contents):
+    """ Return a user's note about a park that already exists """
+
+    return UserNote.query.filter( (UserNote.user_id==user_id) & (UserNote.park_id==park_id) & (UserNote.note==note_contents))
+
+
+def get_park_by_parkCode(parkCode):
+    """ Get park by 4 letter parkCode """
+
+    return Park.query.filter(Park.park_code==parkCode).first()
+
+
+
 if __name__ == '__main__':
     from server import app
     connect_to_db(app)
