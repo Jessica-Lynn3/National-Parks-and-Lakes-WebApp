@@ -74,7 +74,7 @@ def user_login():
     else:
         session["username"] = user.username
         session["user_id"] = user.user_id
-        flash(f"Welcome back, {user.username}".title())
+        flash(f"Welcome back, {user.username}!".title())
         return redirect("/user-dashboard")
 
 
@@ -127,7 +127,6 @@ def submit_search_filter():
     return render_template("search-filter-page.html")
 
 
-
 @app.route("/place-page/<parkCode>")
 def show_place_page(parkCode):
     """ Shows the info for an individual park using its parkCode. """
@@ -151,14 +150,21 @@ def show_place_page(parkCode):
 
 @app.route("/bookmark-park", methods=["POST"])
 def bookmark_park():
+    """ User bookmarks a park.  Creates a Top Park that is saved to user account. """
+    
+    #grab park-info from form
     park_info = json.loads(request.form.get('park-info'))
     print(park_info)
+
+    #if park_info use crud.py to get park.park_id
     if park_info:
         park = crud.get_park(park_info['parkId'])
         print(park)
+        #if park doesn't exist yet, create park
         if not park:
             park = crud.create_park(park_info['parkId'], park_info['parkCode'], park_info['fullName'])
     
+    #if user in session get their user_id
     if 'user_id' in session and session['user_id']:
         user_id = session['user_id']
 
@@ -167,7 +173,7 @@ def bookmark_park():
         # if it does not exist, create a new one
 
         exists = crud.get_user_top_park(user_id, park.park_id)
-        print(exists, "LINE 170")
+        print(exists, "LINE 177")
         print(type(exists))
 
         
@@ -180,6 +186,37 @@ def bookmark_park():
     return redirect('/user-dashboard')
         
 
+
+@app.route("/save-note/<parkCode>", methods=["POST"])
+def save_note(parkCode):
+    """ Saves user note to database """
+
+    # FIRST need to implement check here:
+    #   - for user to save note, park has to be a Top Park
+    #   - if it's a Top Park -- park has been created and saved to db
+
+     #Grab note from form
+    note_contents = request.form.get('park-note')
+
+    #print(parkCode)
+
+    #if user in session get their user_id
+    if session['user_id']:
+        user_id = session['user_id']
+        park = crud.get_park_by_parkCode(parkCode)
+
+    #Grab park from User's Top Parks in db
+    top_park_exists = crud.get_user_top_park(user_id, park.park_id)
+
+    if top_park_exists == None:
+        flash('To write a note for this park, first save it as a Top Park')
+
+    if top_park_exists:
+        new_note = crud.create_user_note(user_id, park.park_id, note_contents)
+        print(f'Note {new_note.note_id} created!')
+        flash(f'Note {new_note.note_id} created!')
+    
+    return redirect("/user-dashboard")
 
 
 @app.route("/search-results")
