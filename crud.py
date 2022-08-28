@@ -69,7 +69,7 @@ def get_user_top_park(user_id, park_id):
 def get_user_note(user_id, park_id, note_contents):
     """ Return a user's note about a park that already exists """
 
-    return UserNote.query.filter( (UserNote.user_id==user_id) & (UserNote.park_id==park_id) & (UserNote.note==note_contents))
+    return UserNote.query.filter( (UserNote.user_id==user_id) & (UserNote.park_id==park_id) & (UserNote.note==note_contents)).first()
 
 
 def get_park_by_parkCode(parkCode):
