@@ -32,16 +32,18 @@
 
     <br>
     <br>
-    <form action="/save-note/{{ park_info['parkCode'] }}" method="POST">
+    <form action="/save-note/{{ park_info['parkCode'] }}.json" method="POST">
         <label for="Form to write a note about park">
             {{ session['username']|title }}, write a note about why 
             you want to visit {{ park_info['fullName'] }}: </label>
         <textArea input type="text" id="park-note" name="park-note" value="park-note"></textArea>
+        <input type="hidden" id="park-code" name="park-code" value="{{ park_info['parkCode'] }}">
         <button type="submit" id="save-park-note" class="button" value="save-note"> Save Note</button>
     </form>
     <br>
     <br>
-
+    <div id="noteDisplay">
+    </div>
     <div id = "park-basic-details" class ="row"></div>
     <label for="park-basic-details"></label>
 
@@ -57,7 +59,7 @@
             </div>
 
     </div>  
-    <!-- <script src="/static/js/place-page.js"></script> -->
-    <!-- <script src="/static/js/user-note.js"></script> -->
+   
+    <script src="/static/js/user-note.js"></script>
 
 {% endblock %}
