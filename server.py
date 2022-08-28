@@ -165,7 +165,7 @@ def bookmark_park():
             park = crud.create_park(park_info['parkId'], park_info['parkCode'], park_info['fullName'])
     
     #if user in session get their user_id
-    if 'user_id' in session and session['user_id']:
+    if session['user_id']:
         user_id = session['user_id']
 
         # implement a check if UserTopPark already contains an object with the user_id and the park.park_id
@@ -181,22 +181,27 @@ def bookmark_park():
             user_park = crud.create_user_top_park(user_id, park.park_id)
             print(f'Top Park {user_park.user_top_park_id} created!')
             flash(f'Top Park {user_park.user_top_park_id} created!')
+        
+        else:
+            flash('This park has already been added to your Top Parks!')
     
-        # return redirect(f'/place-page/{park_info["parkCode"]}')
-    return redirect('/user-dashboard')
+    return redirect(f'/place-page/{park_info["parkCode"]}')
+    
         
 
 
 @app.route("/save-note/<parkCode>", methods=["POST"])
 def save_note(parkCode):
-    """ Saves user note to database """
-
+    """ Returns note about a park as JSON.  Saves note to database """
     # FIRST need to implement check here:
     #   - for user to save note, park has to be a Top Park
     #   - if it's a Top Park -- park has been created and saved to db
 
      #Grab note from form
-    note_contents = request.form.get('park-note')
+    # note_contents = request.form.get('park-note')
+
+    #get value from AJAX
+    note_contents = request.json.get('note')
 
     #print(parkCode)
 
@@ -204,6 +209,7 @@ def save_note(parkCode):
     if session['user_id']:
         user_id = session['user_id']
         park = crud.get_park_by_parkCode(parkCode)
+        print(park)
 
     #Grab park from User's Top Parks in db
     top_park_exists = crud.get_user_top_park(user_id, park.park_id)
@@ -215,8 +221,15 @@ def save_note(parkCode):
         new_note = crud.create_user_note(user_id, park.park_id, note_contents)
         print(f'Note {new_note.note_id} created!')
         flash(f'Note {new_note.note_id} created!')
+
+    #crud.py call to applicable park_id, to get note about that park
+    note_from_db = crud.get_user_note(user_id, park.park_id, note_contents)
+
+    #put into a json string
+    # note_jsonified = jsonify(note_from_db)
     
-    return redirect("/user-dashboard")
+    return jsonify(note_from_db.note)
+   
 
 
 @app.route("/search-results")
