@@ -1,9 +1,15 @@
+<!-- -------------------------------------------------------------------------------------------------------------------------------- -->
+<!--                JINJA -- INHERIT FROM BASE.HTML                                                                                   -->
+<!-- -------------------------------------------------------------------------------------------------------------------------------- -->
+
 {% extends 'base.html' %}
 {% block title %}National Parks and Lakes App - Search Results{% endblock %}
 
 {% block body %}  
 
-    <h3>Search Results Page</h3>
+<!-- -------------------------------------------------------------------------------------------------------------------------------- -->
+<!--                NAVIGATION LINKS                                                                                                  -->
+<!-- -------------------------------------------------------------------------------------------------------------------------------- -->
 
     <label for="Submit Button to Log Out"></label>
     <a href="/logged-out" class="button">Log Out</a>
@@ -22,12 +28,16 @@
     <br>
     <br>
 
+<!-- -------------------------------------------------------------------------------------------------------------------------------- -->
+<!--                DISPLAY SEARCH RESULTS SECTION                                                                                    -->
+<!-- -------------------------------------------------------------------------------------------------------------------------------- -->
+
     {% for park_name, park_data in parks_by_state.items() %}  
     <div class = "park-card ">
         <label for="park-card"></label>
             <div class="card-body">
                 <h5>{{ park_name }}</h5>
-                <a href="/place-page/{{ park_data.get('parkCode') }}">Explore this park's details</a>
+                <a href="/place-page/{{ park_data.get('parkCode') }}">Explore details about {{ park_name }}</a>
                 <br>
                 {% if park_data.get('images') %}
                     <img src="{{ park_data['images'][0]['url'] }}" class="park-image">

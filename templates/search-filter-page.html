@@ -1,10 +1,15 @@
+<!-- -------------------------------------------------------------------------------------------------------------------------------- -->
+<!--                JINJA -- INHERIT FROM BASE.HTML                                                                                   -->
+<!-- -------------------------------------------------------------------------------------------------------------------------------- -->
+
 {% extends 'base.html' %}
 {% block title %}National Parks and Lakes App - User Dashboard{% endblock %}
 
 {% block body %}  
-    
-    <h3>This is the Search Filter Page</h3>
 
+<!-- -------------------------------------------------------------------------------------------------------------------------------- -->
+<!--                FORM FOR SEARCH FILTER FEATURE                                                                                    -->
+<!-- -------------------------------------------------------------------------------------------------------------------------------- -->
 
     <form action="/search-results" id="search-filter-form">
         Search National Parks with Search Filters
@@ -17,10 +22,6 @@
             <label for="parks-by-state-filter">Parks by State Code (Enter only one State Code per search -- Example: CA)</label>
             <input type="text" name="state" id="user-selected-state">
         </div>
-        <!-- <div>
-            <label for="parks-dog-friendly-trails-filter">Parks with Dog-Friendly Trails</label>
-            <input type="checkbox" name="dog-trails" value="dog-friendly-trails" id="dog-friendly-trails-filter">
-        </div> -->
 
 
         <div>
