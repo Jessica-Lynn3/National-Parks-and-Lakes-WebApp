@@ -19,11 +19,14 @@ data = all_parks_res.json()
 parks = data['data']
 #print(type(parks)) #parks is a list of dictionaries
 
+# print(parks[0].keys(), "LINE 22")
+# print(type(parks[1]))
+
 park_designations = ['National Park', 'National Parks', 'National Scenic Trail', 
                         'National Lakeshore', 'National Seashore', 
                         'National Park & Preserve','National Preserve', 
                         'Wild River', 'National River', 'National Recreation Area', 
-                        'National and State Park']
+                        'National and State Park', 'Parkway']
 
 park_data = []  #park_data is a list of dictionaries
 
@@ -56,10 +59,16 @@ def get_park_details_by_park_code(parkCode):
             park_dataset = {'fullName': park['fullName'],
                             'parkId': park['id'],
                             'parkCode': park['parkCode'],
+                            'images': park['images'],
                             'url': park['url'],
                             'states': park['states'],
                             'description': park['description'],
-                            'latLong': park['latLong']}
+                            'latitude': park['latitude'],
+                            'longitude': park['longitude'],
+                            'directionsInfo': park['directionsInfo'],
+                            'directionsUrl': park['directionsUrl'],
+                            'weatherInfo': park['weatherInfo']
+                            }
     return park_dataset
 
 
