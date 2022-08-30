@@ -5,5 +5,34 @@
 
 .park-image {
     width: 200px;
-    height: auto
+    height: 150px
+}
+
+.park-details {
+    width: 500px;
+    height: auto;
+    padding-top: 10px;
+    padding-right: 500px;
+    font-family: inherit;
+}
+
+.park-description {
+    font-family:inherit;
+    font-style: italic
+}
+
+.park-name {
+    font-family: inherit;
+}
+
+.button {
+    font-family: inherit
+}
+
+.label-text {
+    font-family: inherit
+}
+
+.note-text {
+    font-family: inherit
 }
