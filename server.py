@@ -224,9 +224,6 @@ def save_note(parkCode):
 
     #crud.py call to applicable park_id, to get note about that park
     note_from_db = crud.get_user_note(user_id, park.park_id, note_contents)
-
-    #put into a json string
-    # note_jsonified = jsonify(note_from_db)
     
     return jsonify(note_from_db.note)
    
@@ -252,19 +249,44 @@ def show_search_results():
 def show_users_top_places():
     """ Show user's Top Places they want to visit. """
 
-    return render_template("user-top-places.html")
+    park_data = parks.get_park_info_for_cards()
+    # print(type(park_data)) #a list of dictionaries
+    # print("LINE 254")
+    # print(park_data[0]) # 1 dictionary
 
+    #get user-id
+    if session['user_id']:
+        user_id = session['user_id']   
+   
+    #get all of user's Top Parks
+    all_top_parks = crud.get_all_user_top_parks(user_id)
+    print(all_top_parks) #a list of UserTopPark objects
 
+    top_parkCodes = []
 
-@app.route("/user-top-places", methods=["POST"])
-def save_top_park():
-    """ User can write note about why they want to visit park.
-    Park and Note are saved to User info in database """
+    #loop through list and get park_code
+    for item in all_top_parks:
+        park_code = item.parks.park_code
+        print(park_code)
+        top_parkCodes.append(park_code)
+    print(top_parkCodes, "LINE 270")
 
-    #also need to display park 'card' like on user dashboard
-    #   will want to pass in park_data (route /user-dashboard )
+    top_park_data = []
 
-    return render_template("user-top-places.html")
+    #loop through top_parkCodes and park_data
+    #   if park-Code matches park_data's park['parkCode']
+    #   append park (a dictionary) to top_park_data
+    for park_code in top_parkCodes:
+      for park in park_data:
+          if park_code == park['parkCode']:
+              top_park_data.append(park)
+
+    print(top_park_data)
+    print("LINE 283")
+
+    return render_template("user-top-places.html",
+                            top_park_data=top_park_data)
+
 
 
 if __name__ == '__main__':
