@@ -115,6 +115,15 @@
                         </ul>
             </div>
 
+        <!-- ---------------------------------- -->
+        <!--    CONTAINER FOR TRAIL NAME  -->
+        <!-- ---------------------------------- -->
+        <div class="park-description">
+            <label for="park-description"></label>
+            {% for trail in trail_info %}
+                <p> {{ trail_info['trail_name'] }}</p>
+            {% endfor %}
+        </div>
 
 <!-- -------------------------------------------------------------------------------------------------------------------------------- -->
 <!--                IMPORTING JS FILE FOR USER NOTE                                                                                   -->
