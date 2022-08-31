@@ -78,6 +78,12 @@ def get_park_by_parkCode(parkCode):
     return Park.query.filter(Park.park_code==parkCode).first()
 
 
+def get_all_user_top_parks(user_id):
+    """ Return all of user's Top Parks by user_id """
+
+    return UserTopPark.query.filter(UserTopPark.user_id==user_id).all()
+
+
 
 if __name__ == '__main__':
     from server import app
