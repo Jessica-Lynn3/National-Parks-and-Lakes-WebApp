@@ -171,25 +171,27 @@ def get_trail_details_by_park_code(parkCode):
     
         for dictionary in relatedParks:
             park_code = dictionary.get('parkCode')
+    
+        if park_code == parkCode:
+            trail_dataset[trail['title']]= { 'trail_name': trail_name,
+                            'trail_url': trail_url,
+                            'shortDescription': shortDescription, 
+                            'season': season, 
+                            'seasonDescription': seasonDescription,
+                            'isReservationRequired': isReservationRequired, 
+                            'reservationDescription': reservationDescription,
+                            'arePetsPermitted': arePetsPermitted, 
+                            'petsDescription': petsDescription,
+                            'arePetsPermittedWithRestrictions': arePetsPermittedWithRestrictions,
+                            'arePetsPermittedWithRestrictions': trail_amenities, 
+                            'accessibilityInformation': accessibilityInformation,
+                            'duration': duration, 
+                            'durationDescription': durationDescription, 
+                            'timeOfDay': timeOfDay}
 
-            if park_code == parkCode:
-                    trail_dataset= { 'trail_name': trail_name,
-                                    'trail_url': trail_url,
-                                    'shortDescription': shortDescription, 
-                                    'season': season, 
-                                    'seasonDescription': seasonDescription,
-                                    'isReservationRequired': isReservationRequired, 
-                                    'reservationDescription': reservationDescription,
-                                    'arePetsPermitted': arePetsPermitted, 
-                                    'petsDescription': petsDescription,
-                                    'arePetsPermittedWithRestrictions': arePetsPermittedWithRestrictions,
-                                    'arePetsPermittedWithRestrictions': trail_amenities, 
-                                    'accessibilityInformation': accessibilityInformation,
-                                    'duration': duration, 
-                                    'durationDescription': durationDescription, 
-                                    'timeOfDay': timeOfDay}
 
-    return trail_dataset
+    #return trail_dataset
 
-print(get_trail_details_by_park_code(parkCode='yell'))
+    return trail_data
 
+#get_trail_details_by_park_code(parkCode='seki')
