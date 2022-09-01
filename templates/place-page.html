@@ -116,12 +116,19 @@
             </div>
 
         <!-- ---------------------------------- -->
-        <!--    CONTAINER FOR TRAIL NAME  -->
+        <!--    CONTAINER FOR TRAIL NAME        -->
         <!-- ---------------------------------- -->
         <div class="trail-info-card">
             <label for="trail-info-card"></label>
             {% for trail in trail_info %}
-                <p> {{ trail_info['trail_name'] }}</p>
+
+                    <p> {{ trail['title'] }}</p>
+                    <ul>
+                        <li> <b>Are pets permitted?</b>  {{ trail['arePetsPermitted']|title }}</li>
+                        <li> <b>Accessibility Info:</b>  {{ trail['accessibilityInformation']}}</li>
+                        <li> <b>Trail Webpage:</b>  <a href="{{ trail['url'] }}">{{ trail['url'] }}</a></li>
+                    </ul>
+
             {% endfor %}
         </div>
 
