@@ -124,9 +124,15 @@
 
                     <p> {{ trail['title'] }}</p>
                     <ul>
-                        <li> <b>Are pets permitted?</b>  {{ trail['arePetsPermitted']|title }}</li>
-                        <li> <b>Accessibility Info:</b>  {{ trail['accessibilityInformation']}}</li>
                         <li> <b>Trail Webpage:</b>  <a href="{{ trail['url'] }}">{{ trail['url'] }}</a></li>
+                        <li> <b>Trail Description:</b> {{ trail['shortDescription'] }}</li>
+                        <li> <b>Season/ Seasons to Visit:</b> {{ trail['season'] }}</li>
+                        <li> <b>Do fees apply?</b> {{ trail['doFeesApply']|title }}</li>
+                        <li> <b>Is a reservation required?</b> {{ trail['isReservationRequired']|title }}</li>
+                        <li> <b>Are pets permitted?</b>  {{ trail['arePetsPermitted']|title }}</li>
+                        <li> <b>Are pets permited with restrictions?</b> {{ trail['arePetsPermittedWithRestrictions']|title }}</li>
+                        <li> <b>Information about Pets in Park:</b> {{ trail['petsDescription'] }}</li>
+                        <li> <b>Accessibility Information:</b>  {{ trail['accessibilityInformation'] }}</li>
                     </ul>
 
             {% endfor %}
