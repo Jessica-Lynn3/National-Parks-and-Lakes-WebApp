@@ -3,7 +3,7 @@ import requests
 import json
 
 NPS_KEY = os.environ['NPS']
-HEADERS = {"Authorization":f'{NPS_KEY}'}
+HEADERS = {'Authorization':f'{NPS_KEY}', 'Content-Type': 'application/json'}
 
 #-------------------------------------------------------------------------------------------
 #       GLOBAL API CALL TO PARKS ENDPOINT 
@@ -44,6 +44,8 @@ for park in parks:   #a park is one dictionary
     designation = park['designation']
     if designation in park_designations:
         park_data.append(park)
+    
+# print(park_data, "PARK DATA!!!")
 
 #---------------------------------------------------------------------------------------------
 
@@ -61,6 +63,8 @@ all_trails = trails_res.json()
 
 trails = all_trails['data'] #a list of dictionaries
 
+print(trails, 'TRAILS!!!')
+
 trail_data = []  #trail_data will be a list of dictionaries 
                  #   --> each dictionary is info about 1 trail
 
@@ -71,6 +75,8 @@ for trail in trails:
         park_designation = dictionary.get('designation')
         if park_designation in park_designations:
             trail_data.append(trail)
+
+# print(trail_data, "TRAIL DATA!!!")
 
 #print(trail_data[0].keys())
     #dict_keys(['id', 'url', 'title', 'shortDescription', 'images', 'relatedParks', 
@@ -147,51 +153,15 @@ def find_parks_by_state(state):
 
 def get_trail_details_by_park_code(parkCode):
     """ Returns dataset about all trails at one park """
-
-    trail_dataset = {}
-
+    trails = []
+    
     for trail in trail_data:
-        relatedParks = trail.get('relatedParks') #list of dictionaries
-        
-        trail_name = trail.get('title')
-        trail_url = trail.get('url')
-        shortDescription = trail.get('shortDescription')
-        season = trail.get('season')
-        seasonDescription = trail.get('seasonDescription')
-        isReservationRequired = trail.get('isReservationRequired')
-        reservationDescription = trail.get('reservationDescription')
-        arePetsPermitted = trail.get('arePetsPermitted')
-        petsDescription = trail.get('petsDescription')
-        arePetsPermittedWithRestrictions = trail.get('arePetsPermittedWithRestrictions')
-        trail_amenities = trail.get('amenities')
-        accessibilityInformation = trail.get('accessibilityInformation')
-        duration = trail.get('duration')
-        durationDescription = trail.get('durationDescription')
-        timeOfDay = trail.get('timeOfDay')
+        relatedParks = trail.get('relatedParks', [])
+        if relatedParks:
+            for park in relatedParks:
+                if parkCode == park.get('parkCode'):
+                    trails.append(trail)
     
-        for dictionary in relatedParks:
-            park_code = dictionary.get('parkCode')
-    
-        if park_code == parkCode:
-            trail_dataset[trail['title']]= { 'trail_name': trail_name,
-                            'trail_url': trail_url,
-                            'shortDescription': shortDescription, 
-                            'season': season, 
-                            'seasonDescription': seasonDescription,
-                            'isReservationRequired': isReservationRequired, 
-                            'reservationDescription': reservationDescription,
-                            'arePetsPermitted': arePetsPermitted, 
-                            'petsDescription': petsDescription,
-                            'arePetsPermittedWithRestrictions': arePetsPermittedWithRestrictions,
-                            'arePetsPermittedWithRestrictions': trail_amenities, 
-                            'accessibilityInformation': accessibilityInformation,
-                            'duration': duration, 
-                            'durationDescription': durationDescription, 
-                            'timeOfDay': timeOfDay}
-
-
-    #return trail_dataset
-
-    return trail_data
+    return trails
 
 #get_trail_details_by_park_code(parkCode='seki')
