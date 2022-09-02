@@ -132,7 +132,7 @@ def show_place_page(parkCode):
     """ Shows the info for an individual park using its parkCode. """
 
     park_info = parks.get_park_details_by_park_code(parkCode)
-    print(park_info, "PARK DATASET")
+   
 
     # Instead of using lines 139 - 143 below --> use lines 146 - 149:  
     # return render_template("place-page.html",
@@ -142,15 +142,15 @@ def show_place_page(parkCode):
     #                        park_name=park_info.get("fullName"))
     
     trail_info = parks.get_trail_details_by_park_code(parkCode)
-    print(trail_info, "TRAIL DATASET")
+    print([trail.get('relatedParks') for trail in trail_info], 'RELATED PARKS!!!!')
+    
 
 
     #Getting all the same info -- instead using json here -- this is cleaner:
     return render_template("place-page.html",
                            park_info=park_info,
                            json_park_info=json.dumps(park_info),
-                           trail_info=trail_info,
-                           json_trail_info=json.dumps(trail_info))
+                           trail_info=trail_info)
 
 
 
