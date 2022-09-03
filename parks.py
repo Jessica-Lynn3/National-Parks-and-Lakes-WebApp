@@ -1,6 +1,8 @@
-import os
+import os, json
 import requests
-import json
+# import json
+from bs4 import BeautifulSoup 
+import trail_info_no_html_tags 
 
 NPS_KEY = os.environ['NPS']
 HEADERS = {'Authorization':f'{NPS_KEY}', 'Content-Type': 'application/json'}
@@ -61,14 +63,14 @@ trails_res = requests.get(thingstodo_endpoint, params=trails_payload, headers=HE
 
 all_trails = trails_res.json()
 
-trails = all_trails['data'] #a list of dictionaries
+trails_data_no_html_tags = all_trails['data'] #a list of dictionaries
 
-print(trails, 'TRAILS!!!')
+#print(trails, 'TRAILS!!!')
 
 trail_data = []  #trail_data will be a list of dictionaries 
                  #   --> each dictionary is info about 1 trail
 
-for trail in trails:
+for trail in trails_data_no_html_tags:
     #print(type(trail)) #dictionary
     relatedParks = trail.get('relatedParks') #a list of dictionaries
     for dictionary in relatedParks:
@@ -137,6 +139,18 @@ def find_parks_by_state(state):
     """ Returns parks and their info by one state location --
     For example: state = 'CA' --> returns all CA parks and their info """
 
+    states_with_parks_from_API = [ "AL","AK","AZ","AR","CA","CO","CT",
+                                  "DC","FL","GA","HI","ID","IN","KS",
+                                  "KY","ME","MD","MA","MI","MN","MS",
+                                  "MO","MT","NV","NH","NJ","NM","NY",
+                                  "NC","ND","OH","OK","OR","PA","SC",
+                                  "SD","TN","TX","UT","VT","VA","WA",
+                                  "WV","WI","WY"]
+
+    states_with_no_parks_from_API = ["DE","IL","IA","LA","NE","RI","VI"]
+
+    no_parks_message = "No parks were found. This state does not have any parks which the National Park Service qualify as one of these park designations: National Park, National Parks, National and State Park, National Park & Preserve, National Preserve, National Scenic Trail, National Lakeshore, National Seashore,  Wild River, National River, Parkway. Try searching for parks in another state. "
+
     parks_by_state = {}
 
     for park in park_data:
@@ -144,24 +158,117 @@ def find_parks_by_state(state):
             parks_by_state[park['fullName']] = {'parkCode': park['parkCode'],
                                                 'states': park['states'],
                                                 'images': park['images']}
+  
+    #print(parks_by_state)
 
     return parks_by_state
 
-#print(find_parks_by_state('MI'))
+#find_parks_by_state('DE')
+# find_parks_by_state('NH')
+# find_parks_by_state('VT')
 
+
+
+def remove_html_tags():
+    """ Removes html tags passed in from API """
+
+
+    for trail in trail_data:
+        a11y_info = trail['accessibilityInformation']
+    #     print(a11y_info)
+    #     print(type(a11y_info))
+        soup = BeautifulSoup(a11y_info, "html.parser")
+        #print(soup.get_text())
+    
+    # soup = BeautifulSoup(html, "html.parser")
+    # print(soup.prettify())
+
+    return soup.get_text()
+
+# print(remove_html_tags('<style>Testing</style>Works? <br>BREAK<br /> Test 2<p>'))
+# print(remove_html_tags('<p><meta charset="utf-8" />Dogs must be on a leash no longer than 6 feet.</p>'))
+# remove_html_tags()
+#       - Unfortunately, this did not remove the html tags on the webpage
+#       - html is still being passed through from API onto webpage 
+#           (but if I run this function in parks.py, in terminal the html tags are removed)
 
 
 def get_trail_details_by_park_code(parkCode):
     """ Returns dataset about all trails at one park """
+
     trails = []
     
     for trail in trail_data:
+
         relatedParks = trail.get('relatedParks', [])
         if relatedParks:
             for park in relatedParks:
-                if parkCode == park.get('parkCode'):
+                if parkCode == park.get('parkCode'): 
                     trails.append(trail)
-    
+
     return trails
 
-#get_trail_details_by_park_code(parkCode='seki')
+#get_trail_details_by_park_code(parkCode='acad')
+
+
+
+def get_trail_info_without_html_tags():
+    """ Returns trails dictionary from trail_info_no_html_tags.py"""
+
+    trails = trail_info_no_html_tags.get_all_trails()
+
+    return trails 
+
+
+
+def find_parks_with_dog_friendly_trails():
+    """ Returns dictionary of parks that have pet-friendly trails """
+
+    parks_pet_friendly_trails = {}
+    
+    parkCodes_w_pet_trails = ['acad', 'amis', 'appa', 'asis', 'badl', 'bibe', 'bith',
+                                'bisc', #'blca', 
+                                'blri', 'boha', 'brca', 'buff', 'cana', 'cany', 'caco',
+                                'care', 'cave', 'chis', 'chat', #'cong', 'cure'
+                                'cuva', 'deva', 'dena', 'ever', 'fiis', 'jeff', 'gate',
+                                'glca', 'goga', 'grca', 'grba', 'grsa', 'grsm', 'gumo',
+                                'guis', 'hale', 'hosp', 'indu', 'jotr', 'kefj', 'lacl',
+                                'laro', 'lavo', 'maca', 'meve', 'moja', 'mora', 'natt', 
+                                'natr', 'noca', 'pefo', 'piro', 'pore', 'pohe', 'romo',
+                                'samo', 'seki', 'shen', 'slbe', 'tapr', 'thro', 'vall', 
+                                'voya', 'whis', 'wica', 'wrst', 'yell', 'yose', 'zion']
+
+    for park in park_data:
+        if park['parkCode'] in parkCodes_w_pet_trails:
+            parks_pet_friendly_trails[park['fullName']] = {'parkCode': park['parkCode'],
+                                                            'images': park['images'],
+                                                            'states': park['states']}
+
+    
+    return parks_pet_friendly_trails
+
+#print(find_parks_with_dog_friendly_trails())
+
+
+
+def find_parks_with_accessible_trails():
+    """ Returns dictionary of parks that have wheelchair accessible trails """
+
+    
+    parks_accessible_trails = {}
+        
+    parkCodes_w_a11y_trails = ['acad', 'appa', 'arch', 'asis', 'badl', 'bawa', 'bibe', 
+                                'bicy', 'bith', #'blca', 
+                                'blri', 'brca', 'buff', 'cana', 'cany', 'caco', 'care',
+                                'cuva'  #'cong', 'cure'
+                                 ]
+
+    for park in park_data:
+        if park['parkCode'] in parkCodes_w_a11y_trails:
+            parks_accessible_trails[park['fullName']] = {'parkCode': park['parkCode'],
+                                                            'images': park['images'],
+                                                            'states': park['states']}
+        
+    return parks_accessible_trails
+
+#print(find_parks_with_accessible_trails())
