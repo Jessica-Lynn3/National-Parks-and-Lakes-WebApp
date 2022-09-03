@@ -132,21 +132,10 @@ def show_place_page(parkCode):
     """ Shows the info for an individual park using its parkCode. """
 
     park_info = parks.get_park_details_by_park_code(parkCode)
-   
-
-    # Instead of using lines 139 - 143 below --> use lines 146 - 149:  
-    # return render_template("place-page.html",
-    #                        park_info=park_info,
-    #                        park_code=park_info.get("parkCode"),
-    #                        park_id=park_info.get("parkId"),
-    #                        park_name=park_info.get("fullName"))
     
     trail_info = parks.get_trail_details_by_park_code(parkCode)
-    print([trail.get('relatedParks') for trail in trail_info], 'RELATED PARKS!!!!')
+    # print([trail.get('relatedParks') for trail in trail_info], 'RELATED PARKS!!!!')
     
-
-
-    #Getting all the same info -- instead using json here -- this is cleaner:
     return render_template("place-page.html",
                            park_info=park_info,
                            json_park_info=json.dumps(park_info),
@@ -235,7 +224,7 @@ def save_note(parkCode):
    
 
 
-@app.route("/search-results")
+@app.route("/search-results", methods=["GET", "POST"])
 def show_search_results():
     """ Shows the search results from Search Filter Feature. """
 
@@ -243,11 +232,27 @@ def show_search_results():
 
      # make sure input from form is turned into a string
     state = str(state).upper()
-
     parks_by_state = parks.find_parks_by_state(state)
-    print(parks_by_state)
-    
-    return render_template("search-results.html", parks_by_state=parks_by_state)
+    #print(parks_by_state)
+
+    pet_friendly = request.args.get("pet-trails")
+    find_pet_trails = parks.find_parks_with_dog_friendly_trails() #returns dictionary
+
+    wh_accessible = request.args.get("a11y-trails")
+    find_wh_access_trails = parks.find_parks_with_accessible_trails()
+
+    if pet_friendly == "pet-trails":
+        print(find_pet_trails, "PET FRIENDLY TRAILS")
+        # find_pet_trails = parks.find_parks_with_dog_friendly_trails()
+
+    if wh_accessible == "a11y-trails":
+        print(find_wh_access_trails)
+        find_wh_access_trails = parks.find_parks_with_accessible_trails()
+   
+
+    return render_template("search-results.html", parks_by_state=parks_by_state,
+                                                find_pet_trails=find_pet_trails,
+                                                find_wh_access_trails=find_wh_access_trails)
 
 
 
@@ -273,22 +278,25 @@ def show_users_top_places():
     #loop through list and get park_code
     for item in all_top_parks:
         park_code = item.parks.park_code
-        print(park_code)
+        #print(park_code)
         top_parkCodes.append(park_code)
-    print(top_parkCodes, "LINE 270")
+    #print(top_parkCodes, "LINE 270")
+
+    top_parkCodes_no_dupes = set(top_parkCodes)
 
     top_park_data = []
 
-    #loop through top_parkCodes and park_data
+    #loop through top_parkCodes_no_dupes and park_data
     #   if park-Code matches park_data's park['parkCode']
     #   append park (a dictionary) to top_park_data
-    for park_code in top_parkCodes:
+    for park_code in sorted(top_parkCodes_no_dupes):
       for park in park_data:
           if park_code == park['parkCode']:
               top_park_data.append(park)
 
-    print(top_park_data)
-    print("LINE 283")
+    #print(top_park_data)
+    print(top_parkCodes_no_dupes)
+    
 
     return render_template("user-top-places.html",
                             top_park_data=top_park_data)
