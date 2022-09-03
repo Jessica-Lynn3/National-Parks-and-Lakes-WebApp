@@ -11,18 +11,29 @@
 <!--                FORM FOR SEARCH FILTER FEATURE                                                                                    -->
 <!-- -------------------------------------------------------------------------------------------------------------------------------- -->
 
-    <form action="/search-results" id="search-filter-form">
+    <form action="/search-results" method="POST" id="search-filter-form">
         Search National Parks with Search Filters
 
         Find National Parks that have these features
-        (Check the box next to the category you want to search)
+    
         <br>
-
+        <p> To find parks by state, type only one State Code per search.
+            <br> For Example: CA </p>
         <div>
-            <label for="parks-by-state-filter">Parks by State Code (Enter only one State Code per search -- Example: CA)</label>
+            <label for="parks-by-state-filter">Type one State Code here:</label>
             <input type="text" name="state" id="user-selected-state">
         </div>
 
+        <p> Check the box next to the category you want to search: </p>
+        <div>
+            <label for="parks-with-pet-friendly-trails">Parks with Pet-Friendly Trails</label>
+            <input type="checkbox" name="pet-trails" id="user-selected-pet-trails" value="pet-trails"> 
+        </div>
+
+        <div>
+            <label for="parks-with-accessible-trails">Parks with Wheelchair Accessible Trails</label>
+            <input type="checkbox" name="a11y-trails" id="user-selected-a11y-trails" value="a11y-trails">
+        </div>
 
         <div>
             <label for="Submit Button for Search Filter Form"></label>
