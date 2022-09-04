@@ -21,24 +21,26 @@
             <br> For Example: CA </p>
         <div>
             <label for="parks-by-state-filter">Type one State Code here:</label>
-            <input type="text" name="state" id="user-selected-state">
+            <input type="text" name="state" value="state" id="user-selected-state" required>
         </div>
+
+        <!-- <select width=300 style="width: 350px" size="8" multiple>
+            <option name="pet-trails" value="pet-trails">Parks with pet-friendly trails</option>
+            <option name="a11y-trails" value="a11y-trails">Parks with accessible trails</option>
+        </select> -->
 
         <p> Check the box next to the category you want to search: </p>
-        <div>
-            <label for="parks-with-pet-friendly-trails">Parks with Pet-Friendly Trails</label>
-            <input type="checkbox" name="pet-trails" id="user-selected-pet-trails" value="pet-trails"> 
-        </div>
-
-        <div>
-            <label for="parks-with-accessible-trails">Parks with Wheelchair Accessible Trails</label>
-            <input type="checkbox" name="a11y-trails" id="user-selected-a11y-trails" value="a11y-trails">
-        </div>
+            <!-- <label for="parks-with-pet-friendly-trails"></label> -->
+            Parks with pet-friendly trails <input type="checkbox" value="pet-trails" name="search-filter" id="pet-trails"> 
+            <!-- <label for="parks-with-accessible-trails"></label> -->
+            <br>
+            Parks with accessible trails <input type="checkbox" value="a11y-trails" name="search-filter" id="a11y-trails">
+        
 
         <div>
             <label for="Submit Button for Search Filter Form"></label>
             <button type="submit">Submit Search</button>
-        </div>
+        </div> 
     </form>
 
 {% endblock %}
