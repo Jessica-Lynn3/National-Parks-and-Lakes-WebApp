@@ -235,24 +235,25 @@ def show_search_results():
     parks_by_state = parks.find_parks_by_state(state)
     #print(parks_by_state)
 
-    pet_friendly = request.args.get("pet-trails")
-    find_pet_trails = parks.find_parks_with_dog_friendly_trails() #returns dictionary
+    # find_pet_trails = parks.find_parks_with_dog_friendly_trails() #returns dictionary
+    # find_wh_access_trails = parks.find_parks_with_accessible_trails()
 
-    wh_accessible = request.args.get("a11y-trails")
-    find_wh_access_trails = parks.find_parks_with_accessible_trails()
+    # value_set = [find_pet_trails, find_wh_access_trails]
 
-    if pet_friendly == "pet-trails":
-        print(find_pet_trails, "PET FRIENDLY TRAILS")
-        # find_pet_trails = parks.find_parks_with_dog_friendly_trails()
+    if request.method == 'POST':
+        value_set = request.form.getlist('search-filter')
+        if value_set == ['pet-trails']:
+            #return html page and pass in dictionary from parks.py
+            return render_template('search-results.html', parks_by_state=parks_by_state)
+        elif value_set == ['a11y-trails']:
+            return render_template('search-results.html', parks_by_state=parks_by_state)
+        elif value_set == ['pet-trails', 'a11y-trails']:
+            return 'Display BOTH pet trails and accessible trails'
 
-    if wh_accessible == "a11y-trails":
-        print(find_wh_access_trails)
-        find_wh_access_trails = parks.find_parks_with_accessible_trails()
-   
 
-    return render_template("search-results.html", parks_by_state=parks_by_state,
-                                                find_pet_trails=find_pet_trails,
-                                                find_wh_access_trails=find_wh_access_trails)
+    return render_template("search-results.html")
+                                                # find_pet_trails=find_pet_trails,
+                                                # find_wh_access_trails=find_wh_access_trails)
 
 
 
