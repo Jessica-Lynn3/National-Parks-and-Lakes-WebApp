@@ -228,32 +228,56 @@ def save_note(parkCode):
 def show_search_results():
     """ Shows the search results from Search Filter Feature. """
 
+    #get state
     state = request.args.get("state")
-
-     # make sure input from form is turned into a string
     state = str(state).upper()
-    parks_by_state = parks.find_parks_by_state(state)
-    #print(parks_by_state)
+    #parks_by_state = parks.find_parks_by_state(state)
+   
+    #import info dictionary -- has park info values per filter option
+    info = parks.find_parks_by_state(state)
 
-    # find_pet_trails = parks.find_parks_with_dog_friendly_trails() #returns dictionary
-    # find_wh_access_trails = parks.find_parks_with_accessible_trails()
+    #get info from checkbox
+    checked_boxes = request.form.getlist('search-filter')
+    print(checked_boxes)
+    #combine checkbox info and state into one list
+    all_selected_filters = checked_boxes.append(state)
+    print(all_selected_filters, 'ALL FILTERS!!!!!!!')
 
-    # value_set = [find_pet_trails, find_wh_access_trails]
+    #ASK FOR HELP WITH THE FOLLOWING:
+    #
+    # 1) Having trouble with applying filter value, passing that value
+    #   to get the right key in the info dictionary
 
+        # all_selected_filters should be a list
+        # loop through it to find user selections 
+        #   and get the right key from info dictionary
+        #       - if user selected all 3:
+        #           - get this key: 'state_pets_a11y'
+        #       - if user selected state and pets:
+        #           - get this key: 'state_pets'
+        #       - if user selected state and a11y:
+        #           - get this key: 'state_a11y'
+
+    #   3) After that, how do I pass that key's values?
+    #       - in server.py?  
+    #       - if I return diff keys, how would I connect 
+    #       that using ONE value to pass to jinja and html on html page?
+
+    #do something with info:
     if request.method == 'POST':
-        value_set = request.form.getlist('search-filter')
-        if value_set == ['pet-trails']:
-            #return html page and pass in dictionary from parks.py
-            return render_template('search-results.html', parks_by_state=parks_by_state)
-        elif value_set == ['a11y-trails']:
-            return render_template('search-results.html', parks_by_state=parks_by_state)
-        elif value_set == ['pet-trails', 'a11y-trails']:
-            return 'Display BOTH pet trails and accessible trails'
+        print(request.form.getlist('search-filter'))
+        return 'Done'
+
+        # if checked_boxes:
+        #     print(checked_boxes) #to see what values are
+
+        # if state:
+        #     return 'DONE'
+            #return render_template("search-results.html", info=info)
 
 
-    return render_template("search-results.html")
-                                                # find_pet_trails=find_pet_trails,
-                                                # find_wh_access_trails=find_wh_access_trails)
+    return render_template("search-results.html", info=info)
+                                           
 
 
 
