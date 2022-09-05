@@ -2,7 +2,7 @@ import os, json
 import requests
 # import json
 from bs4 import BeautifulSoup 
-import trail_info_no_html_tags 
+# import states_and_park_codes 
 
 NPS_KEY = os.environ['NPS']
 HEADERS = {'Authorization':f'{NPS_KEY}', 'Content-Type': 'application/json'}
@@ -223,17 +223,17 @@ def find_parks_by_state(state):
     """ Returns parks and their info by one state location --
     For example: state = 'CA' --> returns all CA parks and their info """
 
-    states_with_parks_from_API = [ "AL","AK","AZ","AR","CA","CO","CT",
-                                  "DC","FL","GA","HI","ID","IN","KS",
-                                  "KY","ME","MD","MA","MI","MN","MS",
-                                  "MO","MT","NV","NH","NJ","NM","NY",
-                                  "NC","ND","OH","OK","OR","PA","SC",
-                                  "SD","TN","TX","UT","VT","VA","WA",
-                                  "WV","WI","WY"]
+    # states_with_parks_from_API = [ "AL","AK","AZ","AR","CA","CO","CT",
+    #                               "DC","FL","GA","HI","ID","IN","KS",
+    #                               "KY","ME","MD","MA","MI","MN","MS",
+    #                               "MO","MT","NV","NH","NJ","NM","NY",
+    #                               "NC","ND","OH","OK","OR","PA","SC",
+    #                               "SD","TN","TX","UT","VT","VA","WA",
+    #                               "WV","WI","WY"]
 
-    states_with_no_parks_from_API = ["DE","IL","IA","LA","NE","RI","VI"]
+    # states_with_no_parks_from_API = ["DE","IL","IA","LA","NE","RI","VI"]
 
-    no_parks_message = "No parks were found. This state does not have any parks which the National Park Service qualify as one of these park designations: National Park, National Parks, National and State Park, National Park & Preserve, National Preserve, National Scenic Trail, National Lakeshore, National Seashore,  Wild River, National River, Parkway. Try searching for parks in another state. "
+    # no_parks_message = "No parks were found. This state does not have any parks which the National Park Service qualify as one of these park designations: National Park, National Parks, National and State Park, National Park & Preserve, National Preserve, National Scenic Trail, National Lakeshore, National Seashore,  Wild River, National River, Parkway. Try searching for parks in another state. "
 
     parks_by_state = {}
 
@@ -242,48 +242,81 @@ def find_parks_by_state(state):
             parks_by_state[park['fullName']] = {'parkCode': park['parkCode'],
                                                 'states': park['states'],
                                                 'images': park['images']}
-  
-    by_state = parks_by_state
+    #print(parks_by_state)
 
     a11y = find_parks_with_accessible_trails()
+   
+
     pets = find_parks_with_dog_friendly_trails()
 
-    #add both dicts to one dict
 
-    one_dict = {} 
+    #get list of parkCodes for pets
+    parkCodes_w_pet_trails = ['acad', 'amis', 'appa', 'asis', 'badl', 'bibe', 'bith',
+                                'bisc', #'blca', 
+                                'blri', 'boha', 'brca', 'buff', 'cana', 'cany', 'caco',
+                                'care', 'cave', 'chis', 'chat', #'cong', 'cure'
+                                'cuva', 'deva', 'dena', 'ever', 'fiis', 'jeff', 'gate',
+                                'glca', 'goga', 'grca', 'grba', 'grsa', 'grsm', 'gumo',
+                                'guis', 'hale', 'hosp', 'indu', 'jotr', 'kefj', 'lacl',
+                                'laro', 'lavo', 'maca', 'meve', 'moja', 'mora', 'natt', 
+                                'natr', 'noca', 'pefo', 'piro', 'pore', 'pohe', 'romo',
+                                'samo', 'seki', 'shen', 'slbe', 'tapr', 'thro', 'vall', 
+                                'voya', 'whis', 'wica', 'wrst', 'yell', 'yose', 'zion']
+
+    #get list of parkCodes for given state
+    #   put all in 1 list
+    #   pass through a set
+    #these are the parks I want
+    #   for park in park_data:
+    #       if park[parkCode] in set:
+    #           build new dictionary
+    #           state_pets[park[fullName]] = {parkCode: park[parkCode],
+    #                                           states: park[states],
+    #                                           images: park[images]}
+
+    #do the same for state_a11y
+    #and for state_pets_a11y
+
+    info_for_filter = {} 
     
-    one_dict['accessible'] = a11y
-    one_dict['pets'] = pets
-    one_dict['by_state'] = by_state
+    info_for_filter['accessible'] = a11y #want state_a11y
+    info_for_filter['pets'] = pets  #want state_pets
+    # info_for_filter['by_state'] = by_state #want state_pets_a11y
 
-    print(one_dict.get('by_state'))
+        #       - if user selected all 3:
+        #           - get this key: 'state_pets_a11y'
+        #       - if user selected state and pets:
+        #           - get this key: 'state_pets'
+        #       - if user selected state and a11y:
+        #           - get this key: 'state_a11y'
 
-    print(one_dict.keys())
-
-    return one_dict
+    return parks_by_state 
 
 #find_parks_by_state('DE')
 find_parks_by_state('NH')
-# find_parks_by_state('VT')
 
 
 
-def get_info():
+# def get_info_per_search_filter(state):
 
-    a11y = find_parks_with_accessible_trails()
-    pets = find_parks_with_dog_friendly_trails()
+#     a11y = find_parks_with_accessible_trails()
+#     pets = find_parks_with_dog_friendly_trails()
+#     by_state = find_parks_by_state(state) 
 
-    #add both dicts to one dict
+#     #add all dictionaries to one 
 
-    one_dict = {} 
+#     info_for_filter = {} 
     
-    one_dict['accessible'] = a11y
-    one_dict['pets'] = pets
+#     info_for_filter['accessible'] = a11y
+#     info_for_filter['pets'] = pets
+#     info_for_filter['by_state'] = by_state
 
-    #print(one_dict.get('pets'))
-    return one_dict
+#     # print(info_for_filter.keys())
+#     # print("LINE 287!!!!!!!!!!!!!!!!!")
+#     # print(info_for_filter.get('by_state'))
+#     return info_for_filter 
 
-#get_info()
+# get_info_per_search_filter('NH')
 
 
 #-------------------------------------------------------------------------------------------
