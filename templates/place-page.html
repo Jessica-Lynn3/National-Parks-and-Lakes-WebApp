@@ -85,7 +85,7 @@
                     {% if park_info.get('images') %}
                             <img src="{{ park_info['images'][0]['url'] }}" class="park-image">
                             <img src="{{ park_info['images'][1]['url'] }}" class="park-image">
-                            <img src="{{ park_info['images'][2]['url'] }}" class="park-image">
+                            <img src="{{ park_info['images'][2]['url'] }}" class="park-image"> 
                         {% else %}
                             <img src="static/images/National-Park-Service-Logo.png">
                         {% endif %}
@@ -126,13 +126,14 @@
                     <ul>
                         <li> <b>Trail Webpage:</b>  <a href="{{ trail['url'] }}">{{ trail['url'] }}</a></li>
                         <li> <b>Trail Description:</b> {{ trail['shortDescription'] }}</li>
-                        <li> <b>Season/ Seasons to Visit:</b> {{ trail['season'] }}</li>
+                      
                         <li> <b>Do fees apply?</b> {{ trail['doFeesApply']|title }}</li>
                         <li> <b>Is a reservation required?</b> {{ trail['isReservationRequired']|title }}</li>
                         <li> <b>Are pets permitted?</b>  {{ trail['arePetsPermitted']|title }}</li>
-                        <li> <b>Are pets permitted with restrictions?</b> {{ trail['arePetsPermittedWithRestrictions']|title }}</li>
-                        <li> <b>Information about Pets on Trail:</b> {{ trail['petsDescription'] }}</li>
-                        <li> <b>Accessibility Information:</b>  {{ trail['accessibilityInformation'] }}</li>
+                       {# <!-- <li> <b>Are pets permitted with restrictions?</b> {{ trail['arePetsPermittedWithRestrictions']|title }}</li> --> 
+                        <!-- <li> <b>Information about Pets on Trail:</b> {{ trail['petsDescription'] }}</li>
+                        <li> <b>Accessibility Information:</b>  {{ trail['accessibilityInformation'] }}</li>  --> 
+                        <!-- <li> <b>Season/ Seasons to Visit:</b> {{ trail['season'] }}</li>   --> #}
                     </ul>
 
             {% endfor %}
