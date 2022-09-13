@@ -229,54 +229,70 @@ def show_search_results():
     """ Shows the search results from Search Filter Feature. """
 
     #get state
-    state = request.args.get("state")
+    state = request.form.get("state")
     state = str(state).upper()
-    #parks_by_state = parks.find_parks_by_state(state)
-   
+    print(state, "STATE")  
+    parks_by_state = parks.find_parks_by_state(state)
+    #print(parks_by_state, "PARKS BY STATE")
+    
     #import info dictionary -- has park info values per filter option
     info = parks.find_parks_by_state(state)
+    #print(info.keys())  #dict_keys(['state_only', 'state_and_pet_trails'])
 
     #get info from checkbox
     checked_boxes = request.form.getlist('search-filter')
     print(checked_boxes)
+
     #combine checkbox info and state into one list
     all_selected_filters = checked_boxes.append(state)
-    print(all_selected_filters, 'ALL FILTERS!!!!!!!')
+    print(all_selected_filters, 'ALL FILTERS!!!')
 
-    #ASK FOR HELP WITH THE FOLLOWING:
-    #
-    # 1) Having trouble with applying filter value, passing that value
-    #   to get the right key in the info dictionary
-
-        # all_selected_filters should be a list
-        # loop through it to find user selections 
-        #   and get the right key from info dictionary
-        #       - if user selected all 3:
-        #           - get this key: 'state_pets_a11y'
-        #       - if user selected state and pets:
-        #           - get this key: 'state_pets'
-        #       - if user selected state and a11y:
-        #           - get this key: 'state_a11y'
-
-    #   3) After that, how do I pass that key's values?
-    #       - in server.py?  
-    #       - if I return diff keys, how would I connect 
-    #       that using ONE value to pass to jinja and html on html page?
-
-    #do something with info:
+    #verify I got info from checkbox:
     if request.method == 'POST':
         print(request.form.getlist('search-filter'))
-        return 'Done'
+        #return 'Done'
 
-        # if checked_boxes:
-        #     print(checked_boxes) #to see what values are
+    #-----------------------------------------------------------------
+    #What I'm trying to do:
+    #
+    #   1) In parks.py, the function find_parks_by_state(state)
+    #       has a dictionary -- info_for_filter (line 299)
+    #           - info_for_filter has two keys re: 
+    #                   - parks within one state
+    #                   - parks within one state that have pet-friendly trails
+    #   2) I want to update the return of find_parks_by_state(state) function
+    #       so it returns the info_for_filters dictionary
+    #   3) Then import that into server.py (line 239 above)   
 
-        # if state:
-        #     return 'DONE'
-            #return render_template("search-results.html", info=info)
+    # HERE'S WHERE I RAN INTO A PROBLEM:
+    #   4) There's an error in search-results.html:
+    #           - need to update dictionary name --> it's info not parks_by_state
+    #           - and have to account for slightly different format
+    #               - Want ONE dictionary with all the values I need --> info 
+    #               - unsure how to access those in jinja on html page
+    #               - Example:
+    #                   - if user selected state and pet trails:
+    #                           - access info.get(state_and_pet_trails)
+    #                           - display those parks on search-results.html
+    #                   - if user selected state only:
+    #                           - access info.get(state_only)
+    #                           - display those parks on search-results.html
 
+    #   5) To help solve this, I thought I would need a varaible to keep track 
+    #      of what user selected on form
+    #           - Issue:
+    #               - Combining text input with checkboxes
+    #           - Thought I could resolve by:
+    #               - Adding a required checkbox to state
+    #               - So now, state and pet-trails would should in the getlist (line 243 and 251)
+    #           - I am unsure how to connect the getlist values to
+    #               the keys in info, and then have the parks I want 
+    #               displayed on search-results.html page
+    #           - What's odd:
+    #               - line 248 should add state to list
+    #               - When I print it to terminal I get a None value
 
-    return render_template("search-results.html", info=info)
+    return render_template("search-results.html", parks_by_state=parks_by_state, info=info) 
                                            
 
 
