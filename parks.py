@@ -163,6 +163,7 @@ def get_trail_details_by_park_code(parkCode):
 
 
 
+
 #-------------------------------------------------------------------------------------------
 #              FUNCTIONS TO USE TO FIND PARKS RE: SEARCH FILTER OPTION
 #-------------------------------------------------------------------------------------------
@@ -173,9 +174,8 @@ def find_parks_with_dog_friendly_trails():
     parks_pet_friendly_trails = {}
     
     parkCodes_w_pet_trails = ['acad', 'amis', 'appa', 'asis', 'badl', 'bibe', 'bith',
-                                'bisc', #'blca', 
-                                'blri', 'boha', 'brca', 'buff', 'cana', 'cany', 'caco',
-                                'care', 'cave', 'chis', 'chat', #'cong', 'cure'
+                                'bisc', 'blca', 'blri', 'boha', 'brca', 'buff', 'cana', 
+                                'cany', 'caco', 'care', 'cave', 'chis', 'chat', 'cure',
                                 'cuva', 'deva', 'dena', 'ever', 'fiis', 'jeff', 'gate',
                                 'glca', 'goga', 'grca', 'grba', 'grsa', 'grsm', 'gumo',
                                 'guis', 'hale', 'hosp', 'indu', 'jotr', 'kefj', 'lacl',
@@ -204,9 +204,9 @@ def find_parks_with_accessible_trails():
     parks_accessible_trails = {}
         
     parkCodes_w_a11y_trails = ['acad', 'appa', 'arch', 'asis', 'badl', 'bawa', 'bibe', 
-                                'bicy', 'bith', #'blca', 
-                                'blri', 'brca', 'buff', 'cana', 'cany', 'caco', 'care',
-                                'cuva'] #'cong', 'cure'
+                                'bicy', 'bith', 'blri', 'brca', 'buff', 'cana', 'cany', 
+                                'caco', 'care', 'cuva', 'deva', 'dewa', 'ever', 'fiis',
+                                'jeff', 'gate', 'glca'] #will add more
                                  
 
     for park in park_data:
@@ -217,24 +217,18 @@ def find_parks_with_accessible_trails():
         
     return parks_accessible_trails
 
+#print(find_parks_with_accessible_trails())
+
 
 
 def find_parks_by_state(state):
     """ Returns parks and their info by one state location --
     For example: state = 'CA' --> returns all CA parks and their info """
 
-    # states_with_parks_from_API = [ "AL","AK","AZ","AR","CA","CO","CT",
-    #                               "DC","FL","GA","HI","ID","IN","KS",
-    #                               "KY","ME","MD","MA","MI","MN","MS",
-    #                               "MO","MT","NV","NH","NJ","NM","NY",
-    #                               "NC","ND","OH","OK","OR","PA","SC",
-    #                               "SD","TN","TX","UT","VT","VA","WA",
-    #                               "WV","WI","WY"]
 
-    # states_with_no_parks_from_API = ["DE","IL","IA","LA","NE","RI","VI"]
-
-    # no_parks_message = "No parks were found. This state does not have any parks which the National Park Service qualify as one of these park designations: National Park, National Parks, National and State Park, National Park & Preserve, National Preserve, National Scenic Trail, National Lakeshore, National Seashore,  Wild River, National River, Parkway. Try searching for parks in another state. "
-
+    #---------------------------------------------------
+    #     1) Find parks using state argument passed in 
+    #---------------------------------------------------
     parks_by_state = {}
 
     for park in park_data:
@@ -242,19 +236,18 @@ def find_parks_by_state(state):
             parks_by_state[park['fullName']] = {'parkCode': park['parkCode'],
                                                 'states': park['states'],
                                                 'images': park['images']}
+
+    #This gives back dictionary with all parks in given state
     #print(parks_by_state)
 
-    a11y = find_parks_with_accessible_trails()
-   
-
-    pets = find_parks_with_dog_friendly_trails()
-
-
+    #------------------------------------------------------------------------------------
+    #     2) Compare state's parkCodes with parkCodes that have pet-friendly trails 
+    #------------------------------------------------------------------------------------
+    
     #get list of parkCodes for pets
     parkCodes_w_pet_trails = ['acad', 'amis', 'appa', 'asis', 'badl', 'bibe', 'bith',
-                                'bisc', #'blca', 
-                                'blri', 'boha', 'brca', 'buff', 'cana', 'cany', 'caco',
-                                'care', 'cave', 'chis', 'chat', #'cong', 'cure'
+                                'bisc', 'blca', 'blri', 'boha', 'brca', 'buff', 'cana', 
+                                'cany', 'caco', 'care', 'cave', 'chis', 'chat', 'cure',
                                 'cuva', 'deva', 'dena', 'ever', 'fiis', 'jeff', 'gate',
                                 'glca', 'goga', 'grca', 'grba', 'grsa', 'grsm', 'gumo',
                                 'guis', 'hale', 'hosp', 'indu', 'jotr', 'kefj', 'lacl',
@@ -263,60 +256,67 @@ def find_parks_by_state(state):
                                 'samo', 'seki', 'shen', 'slbe', 'tapr', 'thro', 'vall', 
                                 'voya', 'whis', 'wica', 'wrst', 'yell', 'yose', 'zion']
 
+
     #get list of parkCodes for given state
-    #   put all in 1 list
-    #   pass through a set
+    parkCodes_for_given_state = []
+
+    for park, park_info in parks_by_state.items():
+        code = park_info['parkCode']
+        parkCodes_for_given_state.append(code)
+
+    #print(parkCodes_for_given_state, "STATE'S PARK CODES")
+
+    #combine parkCodes that show up in both lists into 1 list
+    parkCodes_w_pet_trails_in_given_state = []
+
+    for code in parkCodes_for_given_state:
+        if code in parkCodes_w_pet_trails:
+            parkCodes_w_pet_trails_in_given_state.append(code)
+
+    #print(parkCodes_w_pet_trails_in_given_state, "STATE'S PARK CODES WITH PET-FRIENDLY TRAILS")
+ 
+    #------------------------------------------------------------------------------------
+    #     3) Create data set of parkCodes that within state with pet-friendly trails
+    #------------------------------------------------------------------------------------
+    #create new dictionary
+    state_pet_trails = {}
+
     #these are the parks I want
-    #   for park in park_data:
-    #       if park[parkCode] in set:
-    #           build new dictionary
-    #           state_pets[park[fullName]] = {parkCode: park[parkCode],
-    #                                           states: park[states],
-    #                                           images: park[images]}
+    for park in park_data:
+        if park['parkCode'] in parkCodes_w_pet_trails_in_given_state:
+            #add to new dictionary with this data set
+            state_pet_trails[park['fullName']] = {'parkCode': park['parkCode'],
+                                              'states': park['states'],
+                                              'images': park['images']}
 
-    #do the same for state_a11y
-    #and for state_pets_a11y
+    #print(state_pet_trails)
 
+    #------------------------------------------------------------------------------------
+    #     4) Pass both parks_by_state and state_pet_trails as keys into 1 dictionary
+    #------------------------------------------------------------------------------------
     info_for_filter = {} 
-    
-    info_for_filter['accessible'] = a11y #want state_a11y
-    info_for_filter['pets'] = pets  #want state_pets
-    # info_for_filter['by_state'] = by_state #want state_pets_a11y
 
-        #       - if user selected all 3:
-        #           - get this key: 'state_pets_a11y'
-        #       - if user selected state and pets:
-        #           - get this key: 'state_pets'
-        #       - if user selected state and a11y:
-        #           - get this key: 'state_a11y'
+    info_for_filter['state_only'] = parks_by_state
+    info_for_filter['state_and_pet_trails'] = state_pet_trails
 
-    return parks_by_state 
+    print(info_for_filter.keys())
+    #print(info_for_filter)
+
+    #return 1 dictionary with all info I need
+    #return info_for_filter
+
+    #------------------------------------------------------------------------------------
+    #     5) Search filter still in progress -- for now, getting back states only works
+    #------------------------------------------------------------------------------------
+ 
+    return parks_by_state
 
 #find_parks_by_state('DE')
-find_parks_by_state('NH')
+# find_parks_by_state('NH')
+find_parks_by_state('CA')
 
 
 
-# def get_info_per_search_filter(state):
-
-#     a11y = find_parks_with_accessible_trails()
-#     pets = find_parks_with_dog_friendly_trails()
-#     by_state = find_parks_by_state(state) 
-
-#     #add all dictionaries to one 
-
-#     info_for_filter = {} 
-    
-#     info_for_filter['accessible'] = a11y
-#     info_for_filter['pets'] = pets
-#     info_for_filter['by_state'] = by_state
-
-#     # print(info_for_filter.keys())
-#     # print("LINE 287!!!!!!!!!!!!!!!!!")
-#     # print(info_for_filter.get('by_state'))
-#     return info_for_filter 
-
-# get_info_per_search_filter('NH')
 
 
 #-------------------------------------------------------------------------------------------
