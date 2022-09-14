@@ -84,6 +84,12 @@ def get_all_user_top_parks(user_id):
     return UserTopPark.query.filter(UserTopPark.user_id==user_id).all()
 
 
+def get_all_user_notes(user_id, park_id):
+    """ Return all notes for one user about a park that already exists """
+
+    return UserNote.query.filter( (UserNote.user_id==user_id) & (UserNote.park_id==park_id) ).all()
+
+
 
 if __name__ == '__main__':
     from server import app
