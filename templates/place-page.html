@@ -49,20 +49,24 @@
 <!--                FORM TO SAVE NOTE FOR A TOP PARK AND DIV TO DISPLAY NOTE                                                          -->
 <!-- -------------------------------------------------------------------------------------------------------------------------------- -->
 
-
-    <form action="/save-note/{{ park_info['parkCode'] }}.json" method="POST">
+    {# <!-- <form>
         <label for="Form to write a note about park" class="label-text">
             {{ session['username']|title }}, after you've saved {{ park_info['fullName'] }} as a Top Park,
             write a note about why you want to visit this park: </label>
-        <textArea input type="text" id="park-note" name="park-note" value="park-note" class="note-text"></textArea>
+       
         <input type="hidden" id="park-code" name="park-code" value="{{ park_info['parkCode'] }}">
-        <button type="submit" id="save-park-note" class="button" value="save-note"> Save Note</button>
-    </form>
-    <br>
-    <br>
+        <input type="submit" id="save-park-note" class="button" value="Save Note">
+    </form> --> #}
 
+    <label for="Form to write a note about park" class="label-text">
+        {{ session['username']|title }}, after you've saved {{ park_info['fullName'] }} as a Top Park,
+        write a note about why you want to visit this park: 
+    </label>
+    <input type=text cols="20" rows="5" id="park-note" name="park-note" class="note-text">
+    <input type="submit" id="save-park-note" class="button" value="Save Note">
+    <input type="hidden" id="park-code" name="park-code" value="{{ park_info['parkCode'] }}"> 
     <label for="container to display note"></label>
-        <div id="noteDisplay" class="note-text"></div>
+    <div id="noteDisplay" class="note-text"></div>
 
 <!-- -------------------------------------------------------------------------------------------------------------------------------- -->
 <!--                PARK INFORMATION SECTION                                                                                          -->
