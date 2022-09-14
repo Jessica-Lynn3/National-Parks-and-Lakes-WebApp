@@ -132,9 +132,14 @@ def show_place_page(parkCode):
     """ Shows the info for an individual park using its parkCode. """
 
     park_info = parks.get_park_details_by_park_code(parkCode)
-    
     trail_info = parks.get_trail_details_by_park_code(parkCode)
     # print([trail.get('relatedParks') for trail in trail_info], 'RELATED PARKS!!!!')
+    
+    # OPTION 2: server-side rendering user park notes
+    # if you have park code and user in session, you could query for the user park notes here
+    # and pass it into the return render template function (user_notes=user_notes).
+    # on the html side in place-page.html, you can loop over user_notes and display there if 
+    # any user notes exist for the park.
     
     return render_template("place-page.html",
                            park_info=park_info,
@@ -222,6 +227,25 @@ def save_note(parkCode):
     
     return jsonify(note_from_db.note)
    
+@app.route("/show-all-notes/<parkCode>")
+def show_all_notes(parkCode):
+    """ Gets all user notes for one park and uses jsonify in the return """
+    
+    #get user_id in session and park_id
+    if session['user_id']:
+        user_id = session['user_id']
+        park = crud.get_park_by_parkCode(parkCode)
+        print(park)
+
+    #query
+    notes = crud.get_all_user_notes(user_id, park.park_id)
+    user_notes = []
+    for note in notes:
+        user_notes.append(note.note)
+    return jsonify({'data': user_notes})
+    
+
+
 
 
 @app.route("/search-results", methods=["GET", "POST"])
