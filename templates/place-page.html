@@ -134,13 +134,23 @@
                         <li> <b>Do fees apply?</b> {{ trail['doFeesApply']|title }}</li>
                         <li> <b>Is a reservation required?</b> {{ trail['isReservationRequired']|title }}</li>
                         <li> <b>Are pets permitted?</b>  {{ trail['arePetsPermitted']|title }}</li>
-                       {# <!-- <li> <b>Are pets permitted with restrictions?</b> {{ trail['arePetsPermittedWithRestrictions']|title }}</li> --> 
-                        <!-- <li> <b>Information about Pets on Trail:</b> {{ trail['petsDescription'] }}</li>
-                        <li> <b>Accessibility Information:</b>  {{ trail['accessibilityInformation'] }}</li>  --> 
-                        <!-- <li> <b>Season/ Seasons to Visit:</b> {{ trail['season'] }}</li>   --> #}
+                        <li> <b>Information about Pets on Trail:</b> {{ trail['petsDescription'] }}</li>
+                        <li> <b>Accessibility Information:</b>  {{ trail['accessibilityInformation'] }}</li>  
+                       {# <!-- <li> <b>Season/ Seasons to Visit:</b> {{ trail['season'] }}</li>   --> #}
                     </ul>
 
             {% endfor %}
+
+            {#  {% for parkCode, trail_data in trails_a11y.items() %} 
+
+                    {% for item in trail_data %}
+                        <ul>
+                            <li> <b> Is trail wheelchair Accesible?:</b> {{ trail_data.get('isWheelchairAccessible')</li>
+                            <li> <b> Accessibility Information:</b> {{ trail_data.get('accessibilityInformation')</li>
+                        </ul>
+                    {% endfor %}
+
+            {% endfor %}  #}
         </div>
 
 <!-- -------------------------------------------------------------------------------------------------------------------------------- -->
