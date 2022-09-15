@@ -101,7 +101,7 @@ def go_back_to_user_dashboard():
     """ Shows the user's dashboard. """
 
 
-    park_data = parks.get_park_info_for_cards()
+    park_data = parks.get_park_designations()
 
     return render_template("user-dashboard.html",
                             park_data=park_data)
@@ -112,7 +112,7 @@ def go_back_to_user_dashboard():
 def show_user_dashboard():
     """ Shows the user's dashboard. """
 
-    park_data = parks.get_park_info_for_cards()
+    park_data = parks.get_park_designations()
 
     return render_template("user-dashboard.html",
                             park_data=park_data)
@@ -132,7 +132,7 @@ def show_place_page(parkCode):
     """ Shows the info for an individual park using its parkCode. """
 
     park_info = parks.get_park_details_by_park_code(parkCode)
-    trail_info = parks.get_trail_details_by_park_code(parkCode)
+    trail_info = parks.get_trail_details_by_park_code(parkCode)  #this should be state
     # print([trail.get('relatedParks') for trail in trail_info], 'RELATED PARKS!!!!')
     
     # OPTION 2: server-side rendering user park notes
@@ -141,10 +141,15 @@ def show_place_page(parkCode):
     # on the html side in place-page.html, you can loop over user_notes and display there if 
     # any user notes exist for the park.
     
+
+    #import from trails.py
+    # trails_a11y = trails.get_all_trail_info_by_parkCode()
+    #   then pass trails_a11y=trails_a11y into return
+
     return render_template("place-page.html",
                            park_info=park_info,
                            json_park_info=json.dumps(park_info),
-                           trail_info=trail_info)
+                           trail_info=trail_info)  #add trails_a11y=trails_a11y ?
 
 
 
@@ -243,89 +248,41 @@ def show_all_notes(parkCode):
     for note in notes:
         user_notes.append(note.note)
     return jsonify({'data': user_notes})
-    
 
 
-
-
-@app.route("/search-results", methods=["GET", "POST"])
+@app.route("/search-results", methods=["GET"])
 def show_search_results():
     """ Shows the search results from Search Filter Feature. """
-
-    #get state
-    state = request.form.get("state")
-    state = str(state).upper()
-    print(state, "STATE")  
-    parks_by_state = parks.find_parks_by_state(state)
-    #print(parks_by_state, "PARKS BY STATE")
     
-    #import info dictionary -- has park info values per filter option
-    info = parks.find_parks_by_state(state)
-    #print(info.keys())  #dict_keys(['state_only', 'state_and_pet_trails'])
-
-    #get info from checkbox
-    checked_boxes = request.form.getlist('search-filter')
-    print(checked_boxes)
-
+    state = request.args.get("state")
+    filters = request.args.getlist('checkbox-filter')
+    # all_parks = parks.get_park_designations()
+    filtered_parks = []
+    
+    if state:   
+        # parks_by_state = parks.find_parks_by_state(state.upper(), all_parks) # filtering parks from api /parks
+        # park_codes = [park['parkCode'] for park in parks_by_state] # get all state park parkCodes
+        filtered_parks = parks.get_park_designation_activities(state.upper()) # get trails from api /thingstodo by parkCodes
+        print(filtered_parks, 'TRAILS BY STATE FILTERED')
+        # if 'pet-trails' in checked_boxes:
+            # then we want to filter parks_by_state down to only parks that are pet friendly
+            # so we would need to call parks.filter_parks_with_dog_friendly_trails(filtered_parks)
+            # set filtered_parks = parks.filter_parks_with_dog_friendly_trails(filtered_parks)
+        if 'pet-trails' in filters:
+            filtered_parks = parks.filter_parks_with_dog_friendly_trails(filtered_parks)
+            print(filtered_parks, 'TRAILS BY PET FILTERED')
+        
+    
+    print(filtered_parks, 'FINAL FILTERED')
     #combine checkbox info and state into one list
-    all_selected_filters = checked_boxes.append(state)
-    print(all_selected_filters, 'ALL FILTERS!!!')
-
-    #verify I got info from checkbox:
-    if request.method == 'POST':
-        print(request.form.getlist('search-filter'))
-        #return 'Done'
-
-    #-----------------------------------------------------------------
-    #What I'm trying to do:
-    #
-    #   1) In parks.py, the function find_parks_by_state(state)
-    #       has a dictionary -- info_for_filter (line 299)
-    #           - info_for_filter has two keys re: 
-    #                   - parks within one state
-    #                   - parks within one state that have pet-friendly trails
-    #   2) I want to update the return of find_parks_by_state(state) function
-    #       so it returns the info_for_filters dictionary
-    #   3) Then import that into server.py (line 239 above)   
-
-    # HERE'S WHERE I RAN INTO A PROBLEM:
-    #   4) There's an error in search-results.html:
-    #           - need to update dictionary name --> it's info not parks_by_state
-    #           - and have to account for slightly different format
-    #               - Want ONE dictionary with all the values I need --> info 
-    #               - unsure how to access those in jinja on html page
-    #               - Example:
-    #                   - if user selected state and pet trails:
-    #                           - access info.get(state_and_pet_trails)
-    #                           - display those parks on search-results.html
-    #                   - if user selected state only:
-    #                           - access info.get(state_only)
-    #                           - display those parks on search-results.html
-
-    #   5) To help solve this, I thought I would need a varaible to keep track 
-    #      of what user selected on form
-    #           - Issue:
-    #               - Combining text input with checkboxes
-    #           - Thought I could resolve by:
-    #               - Adding a required checkbox to state
-    #               - So now, state and pet-trails would should in the getlist (line 243 and 251)
-    #           - I am unsure how to connect the getlist values to
-    #               the keys in info, and then have the parks I want 
-    #               displayed on search-results.html page
-    #           - What's odd:
-    #               - line 248 should add state to list
-    #               - When I print it to terminal I get a None value
-
-    return render_template("search-results.html", parks_by_state=parks_by_state, info=info) 
+    return render_template("search-results.html", filtered_parks=filtered_parks) 
                                            
-
-
 
 @app.route("/user-top-places")
 def show_users_top_places():
     """ Show user's Top Places they want to visit. """
 
-    park_data = parks.get_park_info_for_cards()
+    park_data = parks.get_park_designations()
     # print(type(park_data)) #a list of dictionaries
     # print("LINE 254")
     # print(park_data[0]) # 1 dictionary
