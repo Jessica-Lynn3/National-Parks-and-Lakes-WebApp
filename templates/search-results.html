@@ -32,83 +32,27 @@
 <!--                DISPLAY SEARCH RESULTS SECTION                                                                                    -->
 <!-- -------------------------------------------------------------------------------------------------------------------------------- -->
 
-    <!-- ---------------------------------- -->
-    <!--LOOP THROUGH KEYS OF INFO DICTIONARY-->
-    <!-- ---------------------------------- -->
-
-<!-- {#      {% for key in info.items() %}   -->
-
-
-        <!-- ------------------------------------------ -->
-        <!--    IF 'state_only' KEY, DISPLAY ITS VALUES   -->
-        <!-- ------------------------------------------ -->
-        <!-- {% if key == 'state_only' %}
-                {% for park_name, park_data in state_only.items() %} 
-                    <div class = "park-card ">
-                        <label for="park-card"></label>
-                            <div class="card-body">
-                                <h5>{{ park_name }}</h5>
-                                <a href="/place-page/{{ park_data.get('parkCode') }}">Explore details about {{ park_name }}</a>
-                                <br>
-                                {% if park_data.get('images') %}
-                                    <img src="{{ park_data['images'][0]['url'] }}" class="park-image">
-                                {% else %}
-                                    <img src="static/images/National-Park-Service-Logo.png">
-                                {% endif %}
-                            </div>
-                    </div>
-                {% endfor %}
-        {% endif %} -->
-
-        <!-- ---------------------------------------------------------- -->
-        <!--    IF 'state_and_pet_trails' KEY, DISPLAY ITS VALUES       -->
-        <!-- ---------------------------------------------------------- -->
-        <!-- {% if key == 'state_and_pet_trails' %}
-                {% for park_name, park_data in state_and_pet_trails.items() %} 
-                        <div class = "park-card ">
-                            <label for="park-card"></label>
-                                <div class="card-body">
-                                    <h5>{{ park_name }}</h5>
-                                    <a href="/place-page/{{ park_data.get('parkCode') }}">Explore details about {{ park_name }}</a>
-                                    <br>
-                                    {% if park_data.get('images') %}
-                                        <img src="{{ park_data['images'][0]['url'] }}" class="park-image">
-                                    {% else %}
-                                        <img src="static/images/National-Park-Service-Logo.png">
-                                    {% endif %}
-                                </div>
-                        </div>
-                {% endfor %}
-        {% endif %}
-      
-
-    {% endfor %}  #} -->
- 
-
-<!-- -------------------------------------------------------------------------------------------------------------------------------- -->
-<!--                CODE THAT DISPLAYS PARKS BY STATE                                                                                 -->
-<!-- -------------------------------------------------------------------------------------------------------------------------------- -->
-
-   {% for park_name, park_data in parks_by_state.items() %}
+   {% for park in filtered_parks %}
 
     <div class = "park-card ">
         <label for="park-card"></label>
             <div class="card-body">
-                <h5>{{ park_name }}</h5>
-                <a href="/place-page/{{ park_data.get('parkCode') }}">Explore details about {{ park_name }}</a>
-                <br>
-                {% if park_data.get('images') %}
-                    <img src="{{ park_data['images'][0]['url'] }}" class="park-image">
-                {% else %}
-                    <img src="static/images/National-Park-Service-Logo.png">
-                {% endif %}
+                <h4>{{ park.get('title') }}</h4>
+                <ul>
+                    {% if park.get('images') %}
+                        <img src="{{ park['images'][0]['url'] }}" class="park-image">
+                    {% else %}
+                        <img src="static/images/National-Park-Service-Logo.png">
+                    {% endif %}
+                    <li> <b>Trail Webpage:</b>  <a href="{{ park.get('url') }}">{{ park.get('url') }}</a></li>
+                    <li> <b>Trail Description:</b> {{ park.get('shortDescription') }}</li>
+                    <li> <b>Accessibility Information:</b>  {{ park.get('accessibilityInformation') }}</li>
+                    <li> <b>Pets Permitted:</b> {{ park.get('arePetsPermitted')|title }}</li>
+                </ul>
             </div>
  
     </div>
 
     {% endfor %}  
-
- 
-
 
 {% endblock %}
