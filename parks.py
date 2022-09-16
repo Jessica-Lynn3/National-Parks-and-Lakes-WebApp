@@ -2,7 +2,7 @@ import os, json
 import requests
 # import json
 from bs4 import BeautifulSoup 
-# import states_and_park_codes 
+import trails 
 
 NPS_KEY = os.environ['NPS']
 HEADERS = {'Authorization':f'{NPS_KEY}', 'Content-Type': 'application/json'}
@@ -82,7 +82,10 @@ def get_park_designation_activities(state=None):
         for park in trail.get('relatedParks'):
             if park.get('designation') in PARK_DESIGNATIONS:
                 trail_data.append(trail)
+                #print(trail.get('activities'))   #[{'id': 'BFF8C027-7C8F-480B-A5F8-CD8CE490BFBA', 'name': 'Hiking'}]
     return trail_data
+
+#get_park_designation_activities(state='CA')
 
 # print(trail_data, "TRAIL DATA!!!")
 
@@ -181,7 +184,8 @@ def get_trails_by_park_code(parkCode):
 #-------------------------------------------------------------------------------------------
 
 def filter_parks_with_dog_friendly_trails(parks):
-    """ Returns dictionary of parks that have pet-friendly trails """
+    """ Returns list of dictionaries -- each dictionary a park that has pet-friendly trails  """
+    
     parks_pet_friendly_trails = []
 
     for park in parks:
@@ -192,27 +196,18 @@ def filter_parks_with_dog_friendly_trails(parks):
 
 #print(find_parks_with_dog_friendly_trails())
 
-def find_parks_with_accessible_trails():
-    """ Returns dictionary of parks that have wheelchair accessible trails """
-
+def find_parks_with_accessible_trails(parks):  
+    """ Returns list of dictionaries -- each dictionary a park that has wheelchair accessible trails """
     
-    parks_accessible_trails = {}
-        
-    # parkCodes_w_a11y_trails = ['acad', 'appa', 'arch', 'asis', 'badl', 'bawa', 'bibe', 
-    #                             'bicy', 'bith', 'blri', 'brca', 'buff', 'cana', 'cany', 
-    #                             'caco', 'care', 'cuva', 'deva', 'dewa', 'ever', 'fiis',
-    #                             'jeff', 'gate', 'glca'] #will add more
-                                 
+    accessible_trails = []
 
-    # for park in park_data:
-    #     if park['parkCode'] in parkCodes_w_a11y_trails:
-    #         parks_accessible_trails[park['fullName']] = {'parkCode': park['parkCode'],
-    #                                                         'images': park['images'],
-    #                                                         'states': park['states']}
+    for park in parks:
+        if park.get('isWheelchairAccessible') == "true":
+            accessible_trails.append(park)
         
-    return parks_accessible_trails
+    return accessible_trails
 
-#print(find_parks_with_accessible_trails())
+
 
 
 
