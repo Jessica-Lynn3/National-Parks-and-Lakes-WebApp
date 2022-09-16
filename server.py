@@ -1,5 +1,5 @@
 from flask import Flask, render_template, redirect, request, flash, session, jsonify
-
+from random import choice 
 from model import connect_to_db, db   
 import crud      
 import parks                     
@@ -255,7 +255,10 @@ def show_search_results():
     """ Shows the search results from Search Filter Feature. """
     
     state = request.args.get("state")
-    filters = request.args.getlist('checkbox-filter')
+    pet = request.args.get("pet")
+    accessibility = request.args.get("accessibility")
+    
+    # filters = request.args.getlist('checkbox-filter')
     # all_parks = parks.get_park_designations()
     filtered_parks = []
     
@@ -264,18 +267,27 @@ def show_search_results():
         # park_codes = [park['parkCode'] for park in parks_by_state] # get all state park parkCodes
         filtered_parks = parks.get_park_designation_activities(state.upper()) # get trails from api /thingstodo by parkCodes
         print(filtered_parks, 'TRAILS BY STATE FILTERED')
+     
+        for park in filtered_parks:
+            park['isWheelchairAccessible'] = choice(['true', 'false'])
         # if 'pet-trails' in checked_boxes:
             # then we want to filter parks_by_state down to only parks that are pet friendly
             # so we would need to call parks.filter_parks_with_dog_friendly_trails(filtered_parks)
             # set filtered_parks = parks.filter_parks_with_dog_friendly_trails(filtered_parks)
-        if 'pet-trails' in filters:
+        # if 'pet-trails' in filters:
+        if pet:
             filtered_parks = parks.filter_parks_with_dog_friendly_trails(filtered_parks)
             print(filtered_parks, 'TRAILS BY PET FILTERED')
-        
-    
-    print(filtered_parks, 'FINAL FILTERED')
+        # if 'wh-access-trails' in filters:
+        if accessibility:
+            filtered_parks = parks.find_parks_with_accessible_trails(filtered_parks)  #this is going to error in search-results.html
+            print(filtered_parks, 'TRAILS BY A11Y FILTERED')                          #     -fake data from diff source not API  
+                                                                                      #     - the a11y filtered does not have the same keys-- will error
+                                                                                      #     - should I just alter trails.py dictionary to include keys?  
+    print(filtered_parks, 'FINAL FILTERED')                                           #     - did this in trails.py -- not showing up on html page  
     #combine checkbox info and state into one list
-    return render_template("search-results.html", filtered_parks=filtered_parks) 
+    # return render_template("search-results.html", filtered_parks=filtered_parks) 
+    return jsonify({'data': filtered_parks})
                                            
 
 @app.route("/user-top-places")
