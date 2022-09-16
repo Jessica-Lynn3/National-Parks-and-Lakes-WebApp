@@ -11,7 +11,7 @@
 <!--                FORM FOR SEARCH FILTER FEATURE                                                                                    -->
 <!-- -------------------------------------------------------------------------------------------------------------------------------- -->
 
-    <form action="/search-results" id="search-filter-form">
+    {# <!-- <form action="/search-results" id="search-filter-form"> --> #}
         Search National Parks with Search Filters
 
         Find National Parks
@@ -24,13 +24,19 @@
             <input type="text" name="state" id="user-selected-state" required>
             <br>
             <label for="parks-with-pet-friendly-trails"></label>
-            Parks with pet-friendly trails <input type="checkbox" value="pet-trails" name="checkbox-filter" id="pet-filter"> 
+            Parks with pet-friendly trails <input type="checkbox" name="checkbox-filter" id="pet-filter"> 
+            <br>
+            <label for="parks-with-wheelchair-accessible-trails"></label>
+            Parks with wheelchair accessible trails <input type="checkbox" name="checkbox-filter" id="wh-access-filter"> 
         </div>
 
         <div>
             <label for="Submit Button for Search Filter Form"></label>
-            <button type="submit">Submit Search</button>
+            <button id="submit-search" type="submit">Submit Search</button>
         </div> 
-    </form>
+    {# <!-- </form> --> #}
 
+    <div id="search-results"></div>
+
+    <script src="/static/js/search-results.js"></script>
 {% endblock %}
