@@ -132,24 +132,18 @@ def show_place_page(parkCode):
     """ Shows the info for an individual park using its parkCode. """
 
     park_info = parks.get_park_details_by_park_code(parkCode)
-    trail_info = parks.get_trail_details_by_park_code(parkCode)  #this should be state
-    # print([trail.get('relatedParks') for trail in trail_info], 'RELATED PARKS!!!!')
+    trail_info = parks.get_trail_details_by_park_code(parkCode)  
     
     # OPTION 2: server-side rendering user park notes
     # if you have park code and user in session, you could query for the user park notes here
     # and pass it into the return render template function (user_notes=user_notes).
     # on the html side in place-page.html, you can loop over user_notes and display there if 
     # any user notes exist for the park.
-    
-
-    #import from trails.py
-    # trails_a11y = trails.get_all_trail_info_by_parkCode()
-    #   then pass trails_a11y=trails_a11y into return
 
     return render_template("place-page.html",
                            park_info=park_info,
                            json_park_info=json.dumps(park_info),
-                           trail_info=trail_info)  #add trails_a11y=trails_a11y ?
+                           trail_info=trail_info) 
 
 
 
@@ -164,7 +158,7 @@ def bookmark_park():
     #if park_info use crud.py to get park.park_id
     if park_info:
         park = crud.get_park(park_info['parkId'])
-        print(park)
+        #print(park)
         #if park doesn't exist yet, create park
         if not park:
             park = crud.create_park(park_info['parkId'], park_info['parkCode'], park_info['fullName'])
@@ -173,19 +167,12 @@ def bookmark_park():
     if session['user_id']:
         user_id = session['user_id']
 
-        # implement a check if UserTopPark already contains an object with the user_id and the park.park_id
-        # if it does exist, then don't create a new one
-        # if it does not exist, create a new one
-
         exists = crud.get_user_top_park(user_id, park.park_id)
-        print(exists, "LINE 177")
-        print(type(exists))
 
-        
         if exists == None: 
             user_park = crud.create_user_top_park(user_id, park.park_id)
             print(f'Top Park {user_park.user_top_park_id} created!')
-            flash(f'Top Park {user_park.user_top_park_id} created!')
+            flash(f'This park is saved to your Top Parks list!')
         
         else:
             flash('This park has already been added to your Top Parks!')
@@ -198,17 +185,11 @@ def bookmark_park():
 @app.route("/save-note/<parkCode>", methods=["POST"])
 def save_note(parkCode):
     """ Returns note about a park as JSON.  Saves note to database """
-    # FIRST need to implement check here:
-    #   - for user to save note, park has to be a Top Park
-    #   - if it's a Top Park -- park has been created and saved to db
-
-     #Grab note from form
+  
     # note_contents = request.form.get('park-note')
 
     #get value from AJAX
     note_contents = request.json.get('note')
-
-    #print(parkCode)
 
     #if user in session get their user_id
     if session['user_id']:
@@ -225,7 +206,7 @@ def save_note(parkCode):
     if top_park_exists:
         new_note = crud.create_user_note(user_id, park.park_id, note_contents)
         print(f'Note {new_note.note_id} created!')
-        flash(f'Note {new_note.note_id} created!')
+        flash(f'Your note has been saved!')
 
     #crud.py call to applicable park_id, to get note about that park
     note_from_db = crud.get_user_note(user_id, park.park_id, note_contents)
@@ -258,35 +239,25 @@ def show_search_results():
     pet = request.args.get("pet")
     accessibility = request.args.get("accessibility")
     
-    # filters = request.args.getlist('checkbox-filter')
-    # all_parks = parks.get_park_designations()
     filtered_parks = []
     
     if state:   
-        # parks_by_state = parks.find_parks_by_state(state.upper(), all_parks) # filtering parks from api /parks
-        # park_codes = [park['parkCode'] for park in parks_by_state] # get all state park parkCodes
-        filtered_parks = parks.get_park_designation_activities(state.upper()) # get trails from api /thingstodo by parkCodes
+        filtered_parks = parks.get_park_designation_activities(state.upper()) 
         print(filtered_parks, 'TRAILS BY STATE FILTERED')
      
         for park in filtered_parks:
             park['isWheelchairAccessible'] = choice(['true', 'false'])
-        # if 'pet-trails' in checked_boxes:
-            # then we want to filter parks_by_state down to only parks that are pet friendly
-            # so we would need to call parks.filter_parks_with_dog_friendly_trails(filtered_parks)
-            # set filtered_parks = parks.filter_parks_with_dog_friendly_trails(filtered_parks)
-        # if 'pet-trails' in filters:
+      
         if pet:
             filtered_parks = parks.filter_parks_with_dog_friendly_trails(filtered_parks)
             print(filtered_parks, 'TRAILS BY PET FILTERED')
-        # if 'wh-access-trails' in filters:
+       
         if accessibility:
-            filtered_parks = parks.find_parks_with_accessible_trails(filtered_parks)  #this is going to error in search-results.html
-            print(filtered_parks, 'TRAILS BY A11Y FILTERED')                          #     -fake data from diff source not API  
-                                                                                      #     - the a11y filtered does not have the same keys-- will error
-                                                                                      #     - should I just alter trails.py dictionary to include keys?  
-    print(filtered_parks, 'FINAL FILTERED')                                           #     - did this in trails.py -- not showing up on html page  
-    #combine checkbox info and state into one list
-    # return render_template("search-results.html", filtered_parks=filtered_parks) 
+            filtered_parks = parks.find_parks_with_accessible_trails(filtered_parks)  
+            print(filtered_parks, 'TRAILS BY A11Y FILTERED')                          
+
+    print(filtered_parks, 'FINAL FILTERED')                                            
+  
     return jsonify({'data': filtered_parks})
                                            
 
@@ -295,9 +266,6 @@ def show_users_top_places():
     """ Show user's Top Places they want to visit. """
 
     park_data = parks.get_park_designations()
-    # print(type(park_data)) #a list of dictionaries
-    # print("LINE 254")
-    # print(park_data[0]) # 1 dictionary
 
     #get user-id
     if session['user_id']:
@@ -312,9 +280,7 @@ def show_users_top_places():
     #loop through list and get park_code
     for item in all_top_parks:
         park_code = item.parks.park_code
-        #print(park_code)
         top_parkCodes.append(park_code)
-    #print(top_parkCodes, "LINE 270")
 
     top_parkCodes_no_dupes = set(top_parkCodes)
 
