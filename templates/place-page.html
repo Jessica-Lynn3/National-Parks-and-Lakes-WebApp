@@ -122,7 +122,10 @@
         <!-- ---------------------------------- -->
         <!--    CONTAINER FOR TRAIL INFO        -->
         <!-- ---------------------------------- -->
-        <div class="trail-info-card">
+
+        <div id="trail-activity-info"></div>
+
+        <div class="trail-info-card" >
             <label for="trail-info-card"></label>
             {% for trail in trail_info %}
 
@@ -158,5 +161,7 @@
 <!-- -------------------------------------------------------------------------------------------------------------------------------- -->
 
     <script src="/static/js/user-note.js"></script>
+
+    <script src="/static/js/place-page.js"></script>
 
 {% endblock %}
