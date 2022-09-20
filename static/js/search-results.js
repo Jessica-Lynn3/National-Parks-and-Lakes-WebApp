@@ -30,8 +30,8 @@ const searchParks = (evt) => {
                         <h4>${park.title}</h4>
                         <ul>
                             <img src=${park.images[0].url || "static/images/National-Park-Service-Logo.png"} class="park-image">
-                            <li> <b>Trail Webpage:</b>  <a href=${park.url}>Visit park activity website</a></li>
-                            <li> <b>Trail Description:</b> ${park.shortDescription}</li>
+                            <li> <b>Trail/Activity Webpage:</b>  <a href=${park.url}>Visit park activity website</a></li>
+                            <li> <b>Trail/Activity Description:</b> ${park.shortDescription}</li>
                             <li> <b>Accessibility Information:</b>  ${accessibilityInfo}</li>
                             <li> <b>Pets Permitted:</b> ${park.arePetsPermitted}</li>
                         </ul>
