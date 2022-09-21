@@ -10,9 +10,10 @@ const searchParks = (evt) => {
     evt.preventDefault();
     const stateValue = document.querySelector('#user-selected-state').value;
     const petValue = document.querySelector('#pet-filter').checked;
-    const accessValue = document.querySelector('#wh-access-filter').checked;
+    const reservation = document.querySelector('#reservation').checked;
+    // const accessValue = document.querySelector('#wh-access-filter').checked;
     
-    const url = `/search-results?state=${stateValue}&pet=${petValue}&accessibility=${accessValue}`;
+    const url = `/search-results?state=${stateValue}&pet=${petValue}&reservation=${reservation}`;
 
     fetch(url)
     .then((response) => response.json())
@@ -32,8 +33,9 @@ const searchParks = (evt) => {
                             <img src=${park.images[0].url || "static/images/National-Park-Service-Logo.png"} class="park-image">
                             <li> <b>Trail/Activity Webpage:</b>  <a href=${park.url}>Visit park activity website</a></li>
                             <li> <b>Trail/Activity Description:</b> ${park.shortDescription}</li>
-                            <li> <b>Accessibility Information:</b>  ${accessibilityInfo}</li>
+                            <li> <b>Reservation Required:</b>  ${park.isReservationRequired}</li>
                             <li> <b>Pets Permitted:</b> ${park.arePetsPermitted}</li>
+                            <li> <b>Accessibility Information:</b>  ${accessibilityInfo}</li>
                         </ul>
                     </div>
                 </div>`
