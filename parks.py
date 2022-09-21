@@ -194,20 +194,17 @@ def filter_parks_with_dog_friendly_trails(parks):
            
     return parks_pet_friendly_trails
 
-#print(find_parks_with_dog_friendly_trails())
 
-def find_parks_with_accessible_trails(parks):  
+def find_parks_with_no_reserv_req(parks):  
     """ Returns list of dictionaries -- each dictionary a park that has wheelchair accessible trails """
     
-    accessible_trails = []
+    no_reservations_req = []
 
     for park in parks:
-        if park.get('isWheelchairAccessible') == "true":
-            accessible_trails.append(park)
+        if park.get('isReservationRequired') == "false":
+            no_reservations_req.append(park)
         
-    return accessible_trails
-
-
+    return no_reservations_req
 
 
 
