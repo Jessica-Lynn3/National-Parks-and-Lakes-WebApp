@@ -237,24 +237,21 @@ def show_search_results():
     
     state = request.args.get("state")
     pet = request.args.get("pet")
-    accessibility = request.args.get("accessibility")
+    reservation = request.args.get("reservation")
     
     filtered_parks = []
     
     if state:   
         filtered_parks = parks.get_park_designation_activities(state.upper()) 
         print(filtered_parks, 'TRAILS BY STATE FILTERED')
-     
-        for park in filtered_parks:
-            park['isWheelchairAccessible'] = choice(['true', 'false'])
       
-        if pet:
-            filtered_parks = parks.filter_parks_with_dog_friendly_trails(filtered_parks)
-            print(filtered_parks, 'TRAILS BY PET FILTERED')
-       
-        if accessibility:
-            filtered_parks = parks.find_parks_with_accessible_trails(filtered_parks)  
-            print(filtered_parks, 'TRAILS BY A11Y FILTERED')                          
+    if pet:
+        filtered_parks = parks.filter_parks_with_dog_friendly_trails(filtered_parks)
+        print(filtered_parks, 'TRAILS BY PET FILTERED')
+    
+    if reservation:
+        filtered_parks = parks.find_parks_with_no_reserv_req(filtered_parks)  
+        print(filtered_parks, 'TRAILS BY RESERVATION FILTERED')                          
 
     print(filtered_parks, 'FINAL FILTERED')                                            
   
