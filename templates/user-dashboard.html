@@ -50,8 +50,12 @@
 <!--               WELCOME USER                                                                                                      -->
 <!-- -------------------------------------------------------------------------------------------------------------------------------- -->
 
-<div class="container mt-5 text-center display-3 fw-light">
-    <h1> Hello, {{ session['username']|title }}!</h1>
+<div class="container mt-5"> 
+    <h3 class="container text-center display-5 bg-transparent fw-light"> 
+        Hello, {{ session['username']|title }}!</h3> 
+    <br>
+    <h5 class="container text-center display-6 bg-transparent fst-italic fw-bold">
+        Let's explore some National Parks</h5>
 </div>
 <br>
 <br>
@@ -59,10 +63,7 @@
 <!-- -------------------------------------------------------------------------------------------------------------------------------- -->
 <!--                DISPLAY ALL PARKS                                                                                                 -->
 <!-- -------------------------------------------------------------------------------------------------------------------------------- -->
-<div class="container"> 
-    <h2 class="container text-white text-center display-5"
-    style="background-color: rgb(3, 44, 44)">Explore National Parks</h2>
-</div>
+
 
     <div id = "park-cards" class ="row row-cols-1 row-cols-md-3"></div>
         <label for="park-cards"></label>
@@ -94,7 +95,7 @@
             </div>
         </div>
             {% endfor %}  
-            
+
     </div>  
 
 {% endblock %}
