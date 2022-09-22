@@ -1,12 +1,11 @@
-#faveIcon {
-    width: 138px;
-    height: auto
+
+.card-img-top {
+    width: 200px;
+    height: 150px;
+    padding-left: 10px;
+    image-orientation: center;
 }
 
-.park-image {
-    width: 200px;
-    height: 150px
-}
 
 .park-details {
     width: 500px;
@@ -25,9 +24,6 @@
     font-family: inherit;
 }
 
-.button {
-    font-family: inherit
-}
 
 .label-text {
     font-family: inherit
