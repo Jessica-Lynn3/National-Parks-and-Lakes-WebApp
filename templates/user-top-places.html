@@ -59,9 +59,11 @@
 <!--                DISPLAY USER'S TOP PARKS                                                                                                 -->
 <!-- -------------------------------------------------------------------------------------------------------------------------------- -->
 
-<div class="container mt-5 text-center display-1 fw-light fst-italic">
-    <h2> {{ session['username']|title }}, here are your next adventures!</h2>
+<div class="container mt-5 text-center display-4 fst-italic">
+    <h1> {{ session['username']|title }}, here are your next adventures!</h1>
 </div>
+<br>
+<br>
 
     <div id = "park-cards" class ="row row-cols-1 row-cols-md-3"></div>
         <label for="park-cards"></label>
