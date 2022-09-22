@@ -6,58 +6,95 @@
 {% block title %}National Parks and Lakes App - User Dashboard{% endblock %}
 
 {% block body %}  
-    
+
 <!-- -------------------------------------------------------------------------------------------------------------------------------- -->
-<!--               WELCOME USER                                                                                                      -->
+<!--                BANNER / APP NAME                                                                                                 -->
 <!-- -------------------------------------------------------------------------------------------------------------------------------- -->
 
-    <h1> Hello, {{ session['username']|title }}</h1>
+<div class="position-relative">
+    <h1 class="container-fluid d-none px-5 d-lg-block display-1 text-white fw-light
+                position-absolute top-50 start-50 translate-middle text-center"
+                style="text-shadow:3px 3px 2px rgb(1, 76, 85)">Into the Wild</h1>
+    <img class="container-fluid" src="/static/images/Blue-Ridge-Panoramic-Photo-NPS.jpg" alt="Blue Ridge">
+</div>
+
 
 <!-- -------------------------------------------------------------------------------------------------------------------------------- -->
 <!--                NAVIGATION LINKS                                                                                                  -->
 <!-- -------------------------------------------------------------------------------------------------------------------------------- -->
 
-    <label for="Submit Button to Log Out"></label>
-    <a href="/logged-out" class="button">Log Out</a>
+<nav class="navnar navbar-expand-lg navbar-dark bg-info">
+    <div class="container-fluid justify-content-end text-center"
+    style="background-color: rgb(3, 44, 44)">  
+        <div class="row justify-content-md-center">
+            <div class="col-sm-auto">
+                <label for="Nav Link to Search Filter"></label>
+                <a href="/search-filter-page" class="btn btn-secondary rounded mx-auto 
+                btn-lg active" role="button" aria-pressed="true">Find Trails and Activites Using a Search Filter</a>
+            </div>
+            <div class="col-sm-auto">
+                <label for="Nav Link to User Top Parks List"></label>
+                <a href="/user-top-places" class="btn btn-secondary rounded mx-auto 
+                btn-lg active" role="button" aria-pressed="true">My Top Parks to Visit</a>
+            </div>
+            <div class="col-sm-auto">
+                <label for="Submit Button to Log Out"></label>
+                <a href="/logged-out" class="btn btn-secondary rounded mx-auto 
+                btn-lg active" role="button" aria-pressed="true">Log Out</a>
+            </div>
+        </div>
+    </div>
+</nav> 
 
-    <br> 
+<!-- -------------------------------------------------------------------------------------------------------------------------------- -->
+<!--               WELCOME USER                                                                                                      -->
+<!-- -------------------------------------------------------------------------------------------------------------------------------- -->
 
-    <label for="Nav Link to User Top Parks List"></label>
-    <a href="/user-top-places" class="button">My Top Parks to Visit List</a>
+<div class="container mt-5 text-center display-3 fw-light">
+    <h1> Hello, {{ session['username']|title }}!</h1>
+</div>
+<br>
+<br>
 
-    <br>
-    
-    <label for="Nav Link to Search Filter"></label>
-    <a href="/search-filter-page" class="button">Find National Parks using Search Filter</a>
-    <br>
-    <br>
-    <br>
-   
 <!-- -------------------------------------------------------------------------------------------------------------------------------- -->
 <!--                DISPLAY ALL PARKS                                                                                                 -->
 <!-- -------------------------------------------------------------------------------------------------------------------------------- -->
-    <h2>National Parks</h2>
+<div class="container"> 
+    <h2 class="container text-white text-center display-5"
+    style="background-color: rgb(3, 44, 44)">Explore National Parks</h2>
+</div>
 
-    <div id = "park-cards" class ="row"></div>
+    <div id = "park-cards" class ="row row-cols-1 row-cols-md-3"></div>
         <label for="park-cards"></label>
+        <div class="row">
             {% for park in park_data %}  
-
-                <div class = "park-card ">
+            <div class ="col">
+                <div class = "card">
                     <label for="park-card"></label>
                         <div class="card-body">
-                            <h5> {{ park['fullName'] }} </h5>
-                            <br>
-                            <a href="/place-page/{{ park['parkCode'] }}">Explore details about {{ park['fullName'] }}</a>
-                            <br>
+                            <h5 class="card-title display-6 text-dark text-center"> {{ park['fullName'] }} </h5>
                             {% if park.get('images') %}
-                                <img src="{{ park['images'][0]['url'] }}" class="park-image">
+                                <img src="{{ park['images'][0]['url'] }}" 
+                                class="card-img-top rounded mx-auto d-block" alt="Park image">
                             {% else %}
-                                <img src="static/images/National-Park-Service-Logo.png">
+                                <img src="static/images/National-Park-Service-Logo.png" 
+                                class="card-img-top rounded mx-auto d-block bg-success" alt="Park logo">
                             {% endif %}
+                            <div class="container-lg my-5">
+                                <div class="row justify-content-md-center">
+                                    <div class="col-sm-auto">
+                                        <a href="/place-page/{{ park['parkCode'] }}"
+                                        class="btn btn-outline-dark">
+                                        Explore details about {{ park['fullName'] }} </a> 
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                 </div>
-
+            </div>
+        </div>
             {% endfor %}  
+            
     </div>  
 
 {% endblock %}
