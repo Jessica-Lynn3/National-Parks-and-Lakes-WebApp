@@ -1,4 +1,4 @@
-
+/* styling for place-page.html */
 .card-img-top {
     width: 200px;
     height: 150px;
@@ -32,3 +32,86 @@
 .note-text {
     font-family: inherit
 }
+
+
+/* background image styling for login page */
+#body-login-page {
+    background: url('/static/images/Wildwood-Recreation-Site-Oregon.jpg') no-repeat center center fixed;
+    background-size: cover;
+    background-color: inherit;
+}
+
+.full-width {
+    min-height: 100vh;
+}
+
+/* media query-- want login form fields to be as large as possible for a mobile device */
+@media (max-width: 575.98px) {
+    form {
+        width: 100%;
+    }
+}
+
+
+/* styling for form class */
+form {
+    background-color: #97a989;
+    box-shadow: 5px 5px 5px rgba(0,0,0,.2);
+    font-family: "Roboto", sans-serif;
+    text-align: center;
+    opacity: 85%;
+}
+
+.form input {
+    outline: 0;
+    border-radius: 10px;
+    background: white;
+    width: 100%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.form input:hover{
+    background-color: #fefae0;
+    transition: all 1s ease 0s;
+
+}
+
+.form input:focus{
+    background-color: #faedcd;
+    transition: all 1s ease 0s;
+}
+
+.form button {
+    text-transform: uppercase;
+    outline: 0;
+    border-radius: 10px;
+    background: #3b5446;
+    width: 100%;
+    border: 0;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.form button:hover, .form button:active, .form button:focus{
+    background-color: #5d836e;
+    transition: all 1s ease 0s;
+}
+
+.form .message {
+    margin: 15px 0 0;
+    color: white;
+    font-size: 12px;
+}
+
+.form .message a{
+    color: white;
+    text-decoration: none;
+}
+
+
