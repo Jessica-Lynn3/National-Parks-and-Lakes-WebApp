@@ -114,4 +114,9 @@ form {
     text-decoration: none;
 }
 
-
+/* background image styling for create account page */
+#body-create-account-page {
+    background: url('/static/images/Wildwood-Recreation-Site-Oregon.jpg') no-repeat center center fixed;
+    background-size: cover;
+    background-color: inherit;
+}
