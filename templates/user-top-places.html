@@ -12,7 +12,7 @@
 <!-- -------------------------------------------------------------------------------------------------------------------------------- -->
 
 <div class="container-fluid"
-    style="background-color: rgb(5, 57, 57);">
+style="background-color: rgb(5, 77, 77);">
     <div class="position-relative">
         <h1 class="container-fluid d-none px-5 d-lg-block display-1 text-white fw-light
                     position-absolute top-50 start-50 translate-middle text-center"
@@ -21,7 +21,7 @@
     </div>
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid justify-content-md-center text-center p-4 mb-1"
-        style="background-color: rgb(3, 44, 44)">  
+        style="background-color: #3b5446">  
             <div class="row justify-content-md-center">
                 <div class="col-sm-auto">
                     <label for="Nav Link to Search Filter"></label>
@@ -70,12 +70,14 @@
                                 <img src="static/images/National-Park-Service-Logo.png" 
                                 class="card-img-top rounded mx-auto d-block bg-success" alt="Park logo">
                             {% endif %}
+
                             <div class="container-lg my-5">
                                 <div class="row justify-content-md-center">
-                                    <div class="col-sm-auto">
-                                        <a href="/place-page/{{ park['parkCode'] }}"
-                                        class="btn btn-outline-dark">
-                                        Explore details about {{ park['fullName'] }} </a> 
+                                    <div class="park-page-btn col-sm-auto mb-4 text-center">
+                                        <label for="Nav Linke to Park Page"></label>
+                                        <p><button class="btn"><a class="text-light" 
+                                            href="/place-page/{{ park['parkCode'] }}">
+                                            Explore details about {{ park['fullName'] }}</a></button></p>
                                     </div>
                                 </div>
                             </div>
