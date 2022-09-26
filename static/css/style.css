@@ -166,3 +166,91 @@ form {
     background-color: #449da1;
     transition: all 1s ease 0s;
 }
+
+/* styling for search filter */
+.container-search-filter {
+    background-color: #97a989;
+    box-shadow: 5px 5px 5px rgba(0,0,0,.2);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    text-align: center;
+    opacity: 85%;
+    max-width: 97%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.container-search-filter input {
+    outline: 0;
+    border-radius: 10px;
+    background: white;
+    width: 100%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.container-search-filter input:hover{
+    background-color: #fefae0;
+    transition: all 1s ease 0s;
+
+}
+
+.container-search-filter input:focus{
+    background-color: #faedcd;
+    transition: all 1s ease 0s;
+}
+
+.container-search-filter button {
+    text-transform: uppercase;
+    outline: 0;
+    border-radius: 10px;
+    background: #3b5446;
+    width: 100%;
+    border: 0;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.container-search-filter button:hover, .container-search-filter button:active, .container-search-filter button:focus{
+    background-color: #5d836e;
+    transition: all 1s ease 0s;
+}
+
+
+
+.container {
+    background-color: rgb(5, 77, 77);
+    color: white;
+}
+
+
+.container-banner {
+    background-color: rgb(3, 44, 44);
+    padding: 5px;
+}
+
+/* styling for button links to park pages */
+.park-page-btn button {
+    background-color: rgb(5, 77, 77);
+    text-transform: uppercase;
+    outline: 0;
+    border-radius: 10px;
+    width: 100%;
+    border: 0;
+    padding: 15px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.park-page-btn a{
+    color: white;
+    text-decoration: none;
+}
+.park-page-btn button:hover, .park-page-btn button:active, .park-page-btn button:focus{
+    background-color: #5d836e;
+    transition: all 1s ease 0s;
+}
