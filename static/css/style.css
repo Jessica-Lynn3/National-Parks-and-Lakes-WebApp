@@ -1,18 +1,45 @@
-.masthead {
-    background-size: cover;
-    min-height: 90vh;
-    position: relative;
+
+#body-homepage {
+    background-color: rgb(7, 44, 44);
+}
+
+
+#body-homepage a{
     color: white;
+    text-decoration: none;
 }
 
-h1 {
-    font-size: 3rem;
+#hmpage-btn-new-account {
+    text-transform: uppercase;
+    outline: 0;
+    border-radius: 10px;
+    background-color: #305a42;
+    width: 100%;
+    border: 0;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 14px;
+    cursor: pointer;
 }
 
-.singleCol {
-    max-width: 750;
-    margin: 0 auto;
+#body-homepage button:hover, #body-homepage button:active, #body-homepage button:focus{
+    background-color: #508065;
+    transition: all 1s ease 0s;
 }
+
+#hmpage-btn-login {
+    text-transform: uppercase;
+    outline: 0;
+    border-radius: 10px;
+    background-color: #305a42;
+    width: 100%;
+    border: 0;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 14px;
+    cursor: pointer;
+}
+
 
 /* styling for images from NPS API */
 .card-img-top {
@@ -128,7 +155,7 @@ form {
 
 /* background image styling for logged out page */
 #body-logged-out-page {
-    background: url('/static/images/Waterfalls-1.png') no-repeat center center fixed;
+    background: url('/static/images/Sunset-over-Mountains.jpg') no-repeat center center fixed;
     background-size: cover;
     background-color: inherit;
 }
