@@ -11,11 +11,15 @@
 <!--                CAROUSEL WITH IMAGES AND APP DETAILS                                                                              -->
 <!-- -------------------------------------------------------------------------------------------------------------------------------- -->
 
-<div class="container max-height d-flex align-items-center">
+<body id="body-homepage">
+
+<div class="container full-width d-flex justify-content-center and align-items-center">
+
+    <div class="container max-height d-flex align-items-center">
 
         <div 
-            id="carouselExampleCaptions" class="carousel slide"
-            data-bs-interval="5000" data-bs-ride="carousel">
+            id="carouselExampleCaptions" class="carousel slide carousel-fade"
+            data-bs-interval="15000" data-bs-ride="carousel">
 
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#carouselExampleCaptions"
@@ -65,28 +69,29 @@
         </div>
 
             
+    </div>
+
 </div>
-
-
-
- 
 
 <!-- -------------------------------------------------------------------------------------------------------------------------------- -->
 <!--                NAVIGATION LINKS                                                                                                  -->
 <!-- -------------------------------------------------------------------------------------------------------------------------------- -->
 
-    <!-- <label for="Nav Link to See App Details"></label>
-    <a href="/product-details-page" class="button">See Details about this App</a> -->
-<!-- 
-    <br>  -->
+<div class="container bg-light rounded mx-auto justify-content-center and align-items-center">
+    <div class="row">
+        <div class="col text-center">
+            <label for="Nav Link to Create Account"></label>
+            <p><button id="hmpage-btn-new-account" class="btn"><a class="text-light fw-bold" href="/create-account">Not registered? Create an Account</a></button></p>
+        </div>
+        <div class="col text-center">
+            <label for="Nav Link to Login"></label>
+            <p><button id="hmpage-btn-login" class="btn"><a class="text-light fw-bold" href="/login">Already registered? Login</a></button></p>
+        </div>
+    </div>
+</div>
 
-    <!-- <label for="Nav Link to Create an Account"></label>
-    <a href="/create-account" class="button">Create an Account</a>
 
-    <br>
-
-    <label for="Nav Link to User Log In"></label>
-    <a href="/login" class="button">User Log In</a> -->
-
+</body>
 
 {% endblock %}
+
