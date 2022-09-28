@@ -39,9 +39,12 @@
         <!--    SETTING UP FLASH MESSAGES       -->
         <!-- ---------------------------------- -->
         {% for message in get_flashed_messages() %}
-            <p class="flash-message">
-                {{ message }}
-            </p>
+            <div class="container-fluid text-dark fst-italic p-1 mt-3 mb-3">
+                <h4 class="flash-message p-4 ">
+                    {{ message }}
+                </h4>
+            </div>
+            
         {% endfor %}
         
         {% block body %}{% endblock %}

@@ -8,35 +8,137 @@
 {% block body %}  
 
 <!-- -------------------------------------------------------------------------------------------------------------------------------- -->
+<!--                BANNER / APP NAME AND NAVIGATION LINKS                                                                            -->
+<!-- -------------------------------------------------------------------------------------------------------------------------------- -->
+
+<div class="container-fluid"
+style="background-color: rgb(7, 44, 44);">
+    <div class="position-relative">
+        <h1 class="container-fluid d-none px-5 d-lg-block display-1 text-white fw-light
+                    position-absolute top-50 start-50 translate-middle text-center"
+                    style="text-shadow:3px 3px 2px rgb(1, 76, 85); font-family: fantasy;">Wilderness Awaits</h1>
+        <img class="container-fluid" src="/static/images/Blue-Ridge-Panoramic-Photo-NPS.jpg" alt="Blue Ridge">
+    </div>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid justify-content-md-center text-center p-4 mb-1">  
+            <div class="row justify-content-md-center">
+                <div class="col-sm-auto">
+                    <label for="Nav Link to Search Filter"></label>
+                    <a href="/user-dashboard" class="btn btn-secondary rounded mx-auto btn-lg active" 
+                    role="button" aria-pressed="true">Back to My Dashboard</a>
+                </div>
+                <div class="col-sm-auto">
+                    <label for="Nav Link to go User's Top Parks page"></label>
+                    <a href="/user-top-places" class="btn btn-secondary rounded mx-auto 
+                    btn-lg active" role="button" aria-pressed="true">My Top Parks to Visit</a>
+                </div>
+                <div class="col-sm-auto">
+                    <label for="Submit Button to Log Out"></label>
+                    <a href="/logged-out" class="btn btn-secondary rounded mx-auto 
+                    btn-lg active" role="button" aria-pressed="true">Log Out</a>
+                </div>
+            </div>
+        </div>
+    </nav> 
+</div>
+
+
+<!-- -------------------------------------------------------------------------------------------------------------------------------- -->
 <!--                FORM FOR SEARCH FILTER FEATURE                                                                                    -->
 <!-- -------------------------------------------------------------------------------------------------------------------------------- -->
 
-    {# <!-- <form action="/search-results" id="search-filter-form"> --> #}
-        Search National Parks with Search Filters
+    <div class="search-filter rounded p-4 p-sm-3 text-dark mt-4">
+        <h2 class="text-center">Search National Parks</h2>
+        <p class="lead text-center">Find things to do using the following search filters</p>
+        <hr class="my-4">
 
-        Find National Parks
-    
-        <br>
-        <p> Check the box next to the category you want to search: </p>
-        
-        <div>
-            <label for="parks-by-state-filter"></label>
-            Find trails/activities in this state (Type only one state code -- For example: CA) : <input type="text" name="state" id="user-selected-state" required>
-            <br>
-            <label for="parks-with-pet-friendly-trails"></label>
-            Find trails/activities that are pet-friendly <input type="checkbox" name="checkbox-filter" id="pet-filter"> 
-            <br>
-            <label for="parks-with-wheelchair-accessible-trails"></label>
-            Find trails/activities where reservation is not required <input type="checkbox" name="checkbox-filter" id="reservation"> 
-        </div>
+        <div class="filter-inputs" style="text-align:left">
+            <h6 class="fw-bold">State Location</h6>
+            <label for="State" class="form-label fst-italic">(Type only one US state code -- For example: CA)</label> 
+            <input type="text" name="state" id="user-selected-state" required placeholder="CA"
+            class="form-control">
+            <hr class="my-4">
 
-        <div>
+            <div class="checkboxes">
+                    <label for="Checkbox for pet-friendly trails/activities" class="form-check-label"></label>
+                    <input type="checkbox" name="checkbox-filter" id="pet-filter" 
+                    class="form-check-input"><span class="fw-bolder"> Pet-friendly trails or activities</span>
+                    <br>
+                    <label for="Checkbox for trails/activities where reservation is not required"
+                    class="form-check-label"></label>
+                    <input type="checkbox" name="checkbox-filter" id="reservation" 
+                    class="form-check-input"><span class="fw-bolder"> No reservation required</span>
+            </div>
+            
+            <hr class="my-4">
             <label for="Submit Button for Search Filter Form"></label>
             <button id="submit-search" type="submit">Submit Search</button>
         </div> 
-    {# <!-- </form> --> #}
 
-    <div id="search-results"></div>
+    </div>
+
+<!-- -------------------------------------------------------------------------------------------------------------------------------- -->
+<!--                ACCORDION FOR SEARCH RESULTS                                                                                -->
+<!-- -------------------------------------------------------------------------------------------------------------------------------- -->
+
+
+        <div class="container singleCol mt-5 mb-10 p-5 display-4 rounded mx-auto">
+            <div class="accordion accordion-flush" id="accordionExample">
+                
+                <!-- accordion item -- opened by default -->
+                <!-- <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button
+                            class="accordion-button"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#collapseOne"
+                            aria-expanded="true"
+                            aria-controls="collapseOne">
+                            Accordion Item #1
+                        </button>
+                    </h2>
+                    <div 
+                        id="collapseOne"
+                        class="accordion-collapse collapse show"
+                        aria-labelledby="headingOne"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <p class="text-dark">TEXT GOES HERE </p>
+                        </div>
+                    </div>
+                </div> -->
+
+                <!-- accordion item -- closed by default -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button
+                            class="accordion-button collapsed"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#collapseTwo" 
+                            aria-expanded="false"
+                            aria-controls="collapseTwo">
+                            My Search Results
+                        </button>
+                    </h2>
+                    <div 
+                        id="collapseTwo"
+                        class="accordion-collapse collapse"
+                        aria-labelledby="headingTwo"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <p id="search-results" class="text-dark"></p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    
+
+    <!-- <div id="search-results"></div> -->
 
     <script src="/static/js/search-results.js"></script>
+
 {% endblock %}

@@ -7,22 +7,38 @@
 
 {% block body %}  
 
+<body id="body-homepage">
+    <div class=""
+    style="background-image: url('/static/images/Acadia-sunset.jpg');">
+        <div class="color-overlay d-flex justify-content-center align-items-center">
+            <div class="singleCol container bg-transparent text-center">
+                <h1>Hello world</h1>
+                <p class="lead">
+                    <strong>Tagline here</strong>
+                </p>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<div class="body.container">
 <!-- -------------------------------------------------------------------------------------------------------------------------------- -->
 <!--                APP TITLE AND TAGLINE                                                                                             -->
 <!-- -------------------------------------------------------------------------------------------------------------------------------- -->
 
     <h1>National Parks App</h1>
 
-    <h2>Customize your next adventure to meet your needs while visiting some of America's most majestic landscapes</h2>
+    <h2></h2>
 
 <!-- -------------------------------------------------------------------------------------------------------------------------------- -->
 <!--                NAVIGATION LINKS                                                                                                  -->
 <!-- -------------------------------------------------------------------------------------------------------------------------------- -->
 
-    <label for="Nav Link to See App Details"></label>
-    <a href="/product-details-page" class="button">See Details about this App</a>
-
-    <br> 
+    <!-- <label for="Nav Link to See App Details"></label>
+    <a href="/product-details-page" class="button">See Details about this App</a> -->
+<!-- 
+    <br>  -->
 
     <label for="Nav Link to Create an Account"></label>
     <a href="/create-account" class="button">Create an Account</a>
@@ -32,4 +48,5 @@
     <label for="Nav Link to User Log In"></label>
     <a href="/login" class="button">User Log In</a>
 
+</div>
 {% endblock %}

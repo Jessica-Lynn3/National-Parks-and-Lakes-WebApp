@@ -1,23 +1,27 @@
-/* styling for place-page.html */
+.masthead {
+    background-size: cover;
+    min-height: 90vh;
+    position: relative;
+    color: white;
+}
+
+h1 {
+    font-size: 3rem;
+}
+
+.singleCol {
+    max-width: 750;
+    margin: 0 auto;
+}
+
+/* styling for images from NPS API */
 .card-img-top {
-    width: 200px;
-    height: 150px;
-    padding-left: 10px;
+    width: 280px;
+    height: 178px;
+    margin-left: auto;
+    margin-right: auto;
+    /* padding-left: 10px; */
     image-orientation: center;
-}
-
-
-.park-details {
-    width: 500px;
-    height: auto;
-    padding-top: 10px;
-    padding-right: 500px;
-    font-family: inherit;
-}
-
-.park-description {
-    font-family:inherit;
-    font-style: italic
 }
 
 .park-name {
@@ -55,11 +59,12 @@
 
 /* styling for form class */
 form {
-    background-color: #97a989;
+    /* background-color: #97a989; */
+    background-color: #7c9c8a;
     box-shadow: 5px 5px 5px rgba(0,0,0,.2);
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     text-align: center;
-    opacity: 85%;
+    opacity: 88%;
 }
 
 .form input {
@@ -89,7 +94,7 @@ form {
     text-transform: uppercase;
     outline: 0;
     border-radius: 10px;
-    background: #3b5446;
+    background-color: #305a42;
     width: 100%;
     border: 0;
     padding: 15px;
@@ -99,7 +104,7 @@ form {
 }
 
 .form button:hover, .form button:active, .form button:focus{
-    background-color: #5d836e;
+    background-color: #508065;
     transition: all 1s ease 0s;
 }
 
@@ -168,8 +173,8 @@ form {
 }
 
 /* styling for search filter */
-.container-search-filter {
-    background-color: #97a989;
+.search-filter {
+    background-color: #6d8d7b;
     box-shadow: 5px 5px 5px rgba(0,0,0,.2);
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     text-align: center;
@@ -179,7 +184,7 @@ form {
     margin-right: auto;
 }
 
-.container-search-filter input {
+.search-filter input {
     outline: 0;
     border-radius: 10px;
     background: white;
@@ -191,51 +196,46 @@ form {
     font-size: 14px;
 }
 
-.container-search-filter input:hover{
+.search-filter input:hover{
     background-color: #fefae0;
     transition: all 1s ease 0s;
 
 }
 
-.container-search-filter input:focus{
+.search-filter input:focus{
     background-color: #faedcd;
     transition: all 1s ease 0s;
 }
 
-.container-search-filter button {
+.search-filter button {
     text-transform: uppercase;
     outline: 0;
     border-radius: 10px;
-    background: #3b5446;
+    background-color: #305a42;
     width: 100%;
     border: 0;
     padding: 15px;
     color: #FFFFFF;
-    font-size: 14px;
+    font-size: 18px;
     cursor: pointer;
 }
 
-.container-search-filter button:hover, .container-search-filter button:active, .container-search-filter button:focus{
-    background-color: #5d836e;
+.search-filter button:hover, .search-filter button:active, .search-filter button:focus{
+    background-color: #143321;
     transition: all 1s ease 0s;
 }
 
 
-
 .container {
-    background-color: rgb(5, 77, 77);
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgb(7, 44, 44);
     color: white;
-}
-
-
-.container-banner {
-    background-color: rgb(3, 44, 44);
-    padding: 5px;
 }
 
 /* styling for button links to park pages */
 .park-page-btn button {
-    background-color: rgb(5, 77, 77);
+    background-color: rgb(7, 44, 44);
     text-transform: uppercase;
     outline: 0;
     border-radius: 10px;
@@ -251,6 +251,191 @@ form {
     text-decoration: none;
 }
 .park-page-btn button:hover, .park-page-btn button:active, .park-page-btn button:focus{
-    background-color: #5d836e;
+    /* background-color: #5d836e; */
+    background-color: #508065;
     transition: all 1s ease 0s;
+}
+
+/* styling for checkboxes in search filter */
+
+.checkboxes input {
+    outline: 0;
+    border-radius: 10px;
+    background: white;
+    width: 1%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.checkboxes input span {
+    font-size: 10px;
+    font-weight: bolder;
+}
+
+.singleCol {
+    max-width: 750;
+    margin: 0 auto;
+}
+
+.accordion-button {
+    font-size: inherit;
+    background-color: #efdcc7;
+
+}
+
+.accordion-item {
+    border: 1px solid rgba(35, 65, 100, .15);
+}
+
+.accordion-item p {
+    font-size: 18px;
+
+}
+.accordion-button:not(.collapsed) {
+    color: inherit;
+    background-color: #305a42;
+    opacity: 85%;
+    color: #fcf5ed;
+}
+
+.accordion-button:not(.collapsed)::after {
+    filter: brightness(0%) invert(75%);
+}
+
+.accordian-item li {
+    font-size: 18px;
+}
+
+.container .park-details {
+    height: auto;
+    font-family: inherit;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgb(7, 44, 44);
+}
+
+.container .park-details li {
+    padding-right: 500px;
+}
+
+.container .park-description {
+    font-family: classica;
+    font-style: italic;
+    max-width: 75%;
+    font-size: 18px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.park-details a {
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+.save-park form {
+    font-size: 20px;
+    background-color: #efdcc7;
+    font-weight: bolder;
+}
+
+#park-note {
+    outline: 0;
+    border-radius: 10px;
+    background: white;
+    width: 70%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+
+.save-park button {
+    text-transform: uppercase;
+    outline: 0;
+    border-radius: 10px;
+    background-color: #305a42;
+    width: 50%;
+    border: 0;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.save-park button:hover, .save-park button:active, .save-park button:focus{
+    background-color: #143321;
+    transition: all 1s ease 0s;
+}
+
+#save-park-note {
+    text-transform: uppercase;
+    outline: 0;
+    border-radius: 10px;
+    background-color: #305a42;
+    width: 30%;
+    opacity: 85%;
+    border: 0;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 18px;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#save-park-note:hover, #save-park-note:active, .save-park-note:focus{
+    background-color: #224036;
+    transition: all 1s ease 0s;
+}
+
+.noteDisplay {
+    background-color: #efdcc7;
+    /* background-color: #fefae0; */
+    color:#143321;
+    font-size: 18px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+
+}
+
+.save-park-btn {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.save-park {
+    background-color: #efdcc7;
+    text-align: center;
+    opacity: 88%;
+    width: 100%;
+    color:#143321;
+}
+
+.save-note {
+    background-color: #efdcc7;
+    text-align: center;
+    opacity: 88%;
+    width: 85%;
+    color:#143321;
+}
+
+.user-notes {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+h4.flash-message {
+    background-color: #21777b;
+    font-weight: bolder;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
 }

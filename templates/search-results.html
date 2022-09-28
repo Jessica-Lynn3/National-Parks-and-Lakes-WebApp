@@ -44,15 +44,20 @@
                     {% else %}
                         <img src="static/images/National-Park-Service-Logo.png">
                     {% endif %}
+
                     <li> <b>Trail Webpage:</b>  <a href="{{ park.get('url') }}">{{ park.get('url') }}</a></li>
                     <li> <b>Trail Description:</b> {{ park.get('shortDescription') }}</li>
-                    <li> <b>Accessibility Information:</b>  {{ park.get('accessibilityInformation') }}</li>
+                    <li> <b>Accessibility Information:</b>  <span id="park-accessibility-info"></span></li>
                     <li> <b>Pets Permitted:</b> {{ park.get('arePetsPermitted')|title }}</li>
+
+                    <input type="hidden" id="accessibility-info-hidden" name="park-code" value="{{ park.get('accessibilityInformation') }}">
                 </ul>
             </div>
  
     </div>
 
     {% endfor %}  
+
+    <script src="/static/js/search-results.js"></script>
 
 {% endblock %}

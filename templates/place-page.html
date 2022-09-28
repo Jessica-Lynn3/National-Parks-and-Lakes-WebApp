@@ -8,153 +8,214 @@
 {% block body %}  
 
 <!-- -------------------------------------------------------------------------------------------------------------------------------- -->
-<!--                NAVIGATION LINKS                                                                                                  -->
+<!--                BANNER / APP NAME AND NAVIGATION LINKS                                                                            -->
 <!-- -------------------------------------------------------------------------------------------------------------------------------- -->
 
+<div class="container-fluid"
+style="background-color: rgb(7, 44, 44);">
+    <div class="position-relative">
+        <h1 class="container-fluid d-none px-5 d-lg-block display-1 text-white fw-light
+                    position-absolute top-50 start-50 translate-middle text-center"
+                    style="text-shadow:3px 3px 2px rgb(1, 76, 85); font-family: fantasy;">Wilderness Awaits</h1>
+        <img class="container-fluid" src="/static/images/Blue-Ridge-Panoramic-Photo-NPS.jpg" alt="Blue Ridge">
+    </div>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid justify-content-md-center text-center p-4 mb-1">  
+            <div class="row justify-content-md-center">
+                <div class="col-sm-auto">
+                    <label for="Nav Link to Search Filter"></label>
+                    <a href="/user-dashboard" class="btn btn-secondary rounded mx-auto 
+                    btn-lg active" role="button" aria-pressed="true">Back to My Dashboard</a>
+                </div>
+                <div class="col-sm-auto">
+                    <label for="Nav Link to go User's Top Parks page"></label>
+                    <a href="/user-top-places" class="btn btn-secondary rounded mx-auto 
+                    btn-lg active" role="button" aria-pressed="true">My Top Parks to Visit</a>
+                </div>
+                <div class="col-sm-auto">
+                    <label for="Submit Button to Log Out"></label>
+                    <a href="/logged-out" class="btn btn-secondary rounded mx-auto 
+                    btn-lg active" role="button" aria-pressed="true">Log Out</a>
+                </div>
+            </div>
+        </div>
+    </nav> 
+</div>
 
-    <label for="Submit Button to Log Out"></label>
-    <a href="/logged-out" class="button">Log Out</a>
-
-    <br> 
-
-    <label for="Nav Link to User Top Parks List"></label>
-    <a href="/user-top-places" class="button">Go to My Top Parks to Visit Page</a>
-
-    <br>
-
-    <label for="Nav Link to go back to User Dashboard"></label>
-    <a href="/user-dashboard" class="button">Back to My Dashboard</a>
-
-    <br>
-    <br>
-
-<!-- -------------------------------------------------------------------------------------------------------------------------------- -->
-<!--                FORM TO FAVORITE A PARK AS A TOP PARK                                                                             -->
-<!-- -------------------------------------------------------------------------------------------------------------------------------- -->
-
-
-    
-    <form action="/bookmark-park" method="POST">
-        <label for="Bookmark image-icon and button to save as a Top Park" class="label-text">
-            {{ session['username']|title }}, would you like to save 
-            {{ park_info['fullName'] }} to your Top Parks to Visit page?</label>
-        <input type="hidden" name="park-info" value="{{ json_park_info }}">
-        <button type="submit" id="save-as-top-park" class="button">Yes, Save to My Top Parks Page</button>
-    </form>
-    <br>
-    <br>
-    <br>
-
-<!-- -------------------------------------------------------------------------------------------------------------------------------- -->
-<!--                FORM TO SAVE NOTE FOR A TOP PARK AND DIV TO DISPLAY NOTE                                                          -->
-<!-- -------------------------------------------------------------------------------------------------------------------------------- -->
-
-    {# <!-- <form>
-        <label for="Form to write a note about park" class="label-text">
-            {{ session['username']|title }}, after you've saved {{ park_info['fullName'] }} as a Top Park,
-            write a note about why you want to visit this park: </label>
-       
-        <input type="hidden" id="park-code" name="park-code" value="{{ park_info['parkCode'] }}">
-        <input type="submit" id="save-park-note" class="button" value="Save Note">
-    </form> --> #}
-
-    <label for="Form to write a note about park" class="label-text">
-        {{ session['username']|title }}, after you've saved {{ park_info['fullName'] }} as a Top Park,
-        write a note about why you want to visit this park: 
-    </label>
-    <input type=text cols="20" rows="5" id="park-note" name="park-note" class="note-text">
-    <input type="submit" id="save-park-note" class="button" value="Save Note">
-    <input type="hidden" id="park-code" name="park-code" value="{{ park_info['parkCode'] }}"> 
-    <label for="container to display note"></label>
-    <div id="noteDisplay" class="note-text"></div>
 
 <!-- -------------------------------------------------------------------------------------------------------------------------------- -->
 <!--                PARK INFORMATION SECTION                                                                                          -->
 <!-- -------------------------------------------------------------------------------------------------------------------------------- -->
 
-
+    <div class="text-center display-4 bg-light mx-auto justify-content-md-center rounded">
         <!-- ---------------------------------- -->
         <!--    CONTAINER FOR PARK NAME         -->
         <!-- ---------------------------------- -->
             <div class = "park-name">
                 <label for="park-name"></label>
-                    <h3> {{ park_info['fullName'] }} </h3>
+                    <p class="park-name"> {{ park_info['fullName'] }} </p>
             </div>
             
         <!-- ---------------------------------- -->
         <!--    CONTAINER FOR PARK IMAGES       -->
         <!-- ---------------------------------- -->
-            <div class="park-images">
-                <label for="park-images"></label>
+            <div class="container park-images rounded mx-auto justify-content-md-center"
+            style="background-color: rgb(7, 44, 44);">
+                
+                <div class="row pt-0 p-sm-3 p-md-4 p-lg-5 gap-sm-5">
+                    <label for="park-images"></label>
                     {% if park_info.get('images') %}
-                            <img src="{{ park_info['images'][0]['url'] }}" class="park-image">
-                            <img src="{{ park_info['images'][1]['url'] }}" class="park-image">
-                            <img src="{{ park_info['images'][2]['url'] }}" class="park-image"> 
-                        {% else %}
-                            <img src="static/images/National-Park-Service-Logo.png">
-                        {% endif %}
-            </div>
-        
+                    <img src="{{ park_info['images'][0]['url'] }}" class="card-img-top col-md-4 col-lg-4 ">
+                    <img src="{{ park_info['images'][1]['url'] }}" class="card-img-top col-md-4 col-lg-4 ">
+                    <img src="{{ park_info['images'][2]['url'] }}" class="card-img-top col-md-4 col-lg-4 "> 
+                    {% else %}
+                        <img src="static/images/National-Park-Service-Logo.png">
+                    {% endif %}
+                </div>
+
         <!-- ---------------------------------- -->
         <!--    CONTAINER FOR PARK DESCRIPTION  -->
         <!-- ---------------------------------- -->
-            <div class="park-description">
-                <label for="park-description"></label>
-                <p> {{ park_info['description'] }}</p>
+                <div class="row park-description fst-italic pb-3">
+                    <label for="park-description"></label>
+                    <h4> {{ park_info['description'] }}</h4>
+                </div>
             </div>
+    </div>
 
         <!-- ---------------------------------- -->
         <!--    CONTAINER FOR PARK DETAILS      -->
         <!-- ---------------------------------- -->
-            <div class="park-details">
+            <div class="container park-details p-sm-3 p-md-4 p-lg-5 gap-sm-5 rounded mx-auto"
+            style="background-color: rgb(7, 44, 44);">
                 <label for="park-details"></label>
-                        <ul style="list-style-type:disc;">
-                            <li> <b>Park Website:</b> <a href="{{ park_info['url'] }}">{{ park_info['url'] }}</a> </li>
-                            <li> <b>Located in these States:</b> {{ park_info['states'] }}</li>
-                            <li> <b>Latitude:</b> {{ park_info['latitude'] }}</li>
-                            <li> <b>Longitude:</b> {{ park_info['longitude'] }}</li>
-                            <li> <b>Directions Info:</b> {{ park_info['directionsInfo'] }}</li>
-                            <li> <b>Directions Link:</b> <a href="{{ park_info['directionsUrl'] }}">{{ park_info['directionsUrl'] }}</a></li>
-                            <li> <b>Weather Info:</b> {{ park_info['weatherInfo'] }}</li>
-                        </ul>
+                <ul>
+                    <li class="fw-light p-1"> <b class="fw-bold p-1" style="color: rgb(58, 117, 117);">
+                        PARK WEBSITE:</b>
+                        <a href="{{ park_info['url'] }}">{{ park_info['url'] }}</a> </li>
+                    <li class="fw-light p-1"> <b class="fw-bold p-1" style="color: rgb(58, 117, 117);">
+                        LOCATED IN THESE STATES:</b>
+                         {{ park_info['states'] }}</li>
+                    <li class="fw-light p-1"> <b class="fw-bold p-1" style="color: rgb(58, 117, 117);">
+                        LATITUDE:</b>
+                         {{ park_info['latitude'] }}</li>
+                    <li class="fw-light p-1"> <b class="fw-bold p-1" style="color: rgb(58, 117, 117);">
+                        LONGITUDE:</b>
+                         {{ park_info['longitude'] }}</li>
+                    <li class="fw-light p-1"> <b class="fw-bold p-1" style="color: rgb(58, 117, 117);">
+                        DIRECTIONS LINK:</b> 
+                        <a href="{{ park_info['directionsUrl'] }}">{{ park_info['directionsUrl'] }}</a></li>
+                    <li class="fw-light p-1"> <b class="fw-bold p-1" style="color: rgb(58, 117, 117);">
+                        DIRECTIONS INFO:</b>
+                         {{ park_info['directionsInfo'] }}</li>
+                    <li class="fw-light p-1"> <b class="fw-bold p-1" style="color: rgb(58, 117, 117);">
+                        WEATHER INFO:</b>
+                         {{ park_info['weatherInfo'] }}</li>
+                </ul>
             </div>
+            <hr class="my-4">
 
         <!-- ---------------------------------- -->
         <!--    CONTAINER FOR TRAIL INFO        -->
         <!-- ---------------------------------- -->
 
-        <div id="trail-activity-info"></div>
-
-        <div class="trail-info-card" >
+        <div class="container text-center trail-info-card" >
             <label for="trail-info-card"></label>
+                <h4>Explore Trails and Activities!</h4>
+
             {% for trail in trail_info %}
-
-                    <p> {{ trail['title'] }}</p>
-                    <ul>
-                        <li> <b>Trail/Activity Webpage:</b>  <a href="{{ trail['url'] }}">{{ trail['url'] }}</a></li>
-                        <li> <b>Trail/Activity Description:</b> {{ trail['shortDescription'] }}</li>
-                      
-                        <li> <b>Do fees apply?</b> {{ trail['doFeesApply']|title }}</li>
-                        <li> <b>Is a reservation required?</b> {{ trail['isReservationRequired']|title }}</li>
-                        <li> <b>Are pets permitted?</b>  {{ trail['arePetsPermitted']|title }}</li>
-                        <li> <b>Information about Pets:</b> {{ trail['petsDescription'] }}</li>
-                        <li> <b>Accessibility Information:</b>  {{ trail['accessibilityInformation'] }}</li>  
-                       {# <!-- <li> <b>Season/ Seasons to Visit:</b> {{ trail['season'] }}</li>   --> #}
-                    </ul>
-
+            <div class="container singleCol p-4 display-4 rounded mx-auto">
+                <div class="accordion accordion-flush" id="accordionBody">
+                    <!-- accordion item -- closed by default -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingItem">
+                            <button
+                                class="accordion-button collapsed"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#collapseItem" 
+                                aria-expanded="false"
+                                aria-controls="collapseItem">
+                                <p style="font-size:20px"> {{ trail['title'] }}</p>
+                            </button>
+                        </h2>
+                        <div 
+                            id="collapseItem"
+                            class="accordion-collapse collapse"
+                            aria-labelledby="headingItem"
+                            data-bs-parent="#accordionBody">
+                            <div class="accordion-body text-dark p-3 p-sm-3 p-md-4 p-lg-5">
+                                <img src="{{ trail['images'][0]['url'] }}" class="card-img-top">
+                                <ul class="text-dark p-2" style="font-size: 18px; text-align: left;"> 
+                                    <li> <b class="fw-bold p-1">Trail/Activity Webpage:</b>  <a href="{{ trail['url'] }}">{{ trail['url'] }}</a></li>
+                                    <li> <b class="fw-bold p-1">Trail/Activity Description:</b> {{ trail['shortDescription'] }}</li>
+                                    <li> <b class="fw-bold p-1">Do fees apply?</b> {{ trail['doFeesApply']|title }}</li>
+                                    <li> <b class="fw-bold p-1">Is a reservation required?</b> {{ trail['isReservationRequired']|title }}</li>
+                                    <li> <b class="fw-bold p-1">Are pets permitted?</b>  {{ trail['arePetsPermitted']|title }}</li>
+                                    <li> <b class="fw-bold p-1">Information about Pets:</b> {{ trail['petsDescription'] }}</li>
+                                    <li> <b class="fw-bold p-1">Accessibility Information:</b>  {{ trail['accessibilityInformation'] }}</li>  
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>        
             {% endfor %}
-
-            {#  {% for parkCode, trail_data in trails_a11y.items() %} 
-
-                    {% for item in trail_data %}
-                        <ul>
-                            <li> <b> Is trail wheelchair Accesible?:</b> {{ trail_data.get('isWheelchairAccessible')</li>
-                            <li> <b> Accessibility Information:</b> {{ trail_data.get('accessibilityInformation')</li>
-                        </ul>
-                    {% endfor %}
-
-            {% endfor %}  #}
         </div>
+        <hr class="my-4">
+
+<!-- -------------------------------------------------------------------------------------------------------------------------------- -->
+<!--                FORM TO FAVORITE A PARK AS A TOP PARK                                                                             -->
+<!-- -------------------------------------------------------------------------------------------------------------------------------- -->
+
+<div class="container save-park p-3 p-sm-3 p-md-4 p-lg-5 gap-sm-5 rounded mx-auto"
+            style="background-color: rgb(7, 44, 44);">
+
+    <form action="/bookmark-park" method="POST" class="rounded mx-auto">
+        <label for="Bookmark image-icon and button to save as a Top Park" class="p-4 text-center text-dark"></label>
+            {{ session['username']|title }}, would you like to save 
+            {{ park_info['fullName'] }} to your Top Parks to Visit page?</label>
+        <input type="hidden" name="park-info" value="{{ json_park_info }}">
+
+        <div class="bg-transparent">
+            <label for="Button to Save Park to Top Parks Page"></label>
+            <button id="save-as-top-park" type="submit" class="text-center p-3 mt-3 mb-4">Yes, Save to My Top Parks Page</button>
+        </div>
+        <!-- <button type="submit" id="save-as-top-park" class="button">Yes, Save to My Top Parks Page</button> -->
+    </form>
+</div>
+
+
+<!-- -------------------------------------------------------------------------------------------------------------------------------- -->
+<!--                FORM TO SAVE NOTE FOR A TOP PARK AND DIV TO DISPLAY NOTE                                                          -->
+<!-- -------------------------------------------------------------------------------------------------------------------------------- -->
+
+<div class="container p-3 p-sm-3 p-md-4 p-lg-5 gap-sm-5 justify-content-center and align-items-center rounded mx-auto"
+            style="background-color: rgb(5, 77, 77);">
+
+    <div class="save-note rounded mx-auto">
+        <label for="Form to write a note about park" class="label-text text-center p-4 fw-bold"
+        style="font-size: 20px;">
+            {{ session['username']|title }}, after you've saved {{ park_info['fullName'] }} as a Top Park,
+            write a note about why you want to visit this park: 
+        </label>
+        <input type=text cols="20" rows="5" id="park-note" name="park-note" class="note-text">
+        <div class="save-park-btn">
+            <input type="submit" id="save-park-note" class="text-center mx-auto p-3 mt-3 mb-4" value="Save Note">
+            <input type="hidden" id="park-code" name="park-code" value="{{ park_info['parkCode'] }}"> 
+        </div>
+        
+        <div class="user-notes">
+            <!-- <h5 class="text-center">Your notes will be displayed below:</h5> -->
+            <label for="container to display note"></label>
+            <div id="noteDisplay" class="note-text rounded mx-auto p-4"></div>
+        </div>
+        
+    </div>
+
+</div>
+
+
 
 <!-- -------------------------------------------------------------------------------------------------------------------------------- -->
 <!--                IMPORTING JS FILE FOR USER NOTE                                                                                   -->
