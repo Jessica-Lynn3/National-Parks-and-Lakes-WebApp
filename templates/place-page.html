@@ -104,7 +104,7 @@ style="background-color: rgb(7, 44, 44);">
                          {{ park_info['longitude'] }}</li>
                     <li class="fw-light p-1"> <b class="fw-bold p-1" style="color: rgb(58, 117, 117);">
                         DIRECTIONS LINK:</b> 
-                        <a href="{{ park_info['directionsUrl'] }}">{{ park_info['directionsUrl'] }}</a></li>
+                        <a href="{{ park_info['directionsUrl'] }}">Click here to go to Directions Info</a></li>
                     <li class="fw-light p-1"> <b class="fw-bold p-1" style="color: rgb(58, 117, 117);">
                         DIRECTIONS INFO:</b>
                          {{ park_info['directionsInfo'] }}</li>
@@ -147,13 +147,13 @@ style="background-color: rgb(7, 44, 44);">
                             <div class="accordion-body text-dark p-3 p-sm-3 p-md-4 p-lg-5">
                                 <img src="{{ trail['images'][0]['url'] }}" class="card-img-top">
                                 <ul class="text-dark p-2" style="font-size: 18px; text-align: left;"> 
-                                    <li> <b class="fw-bold p-1">Trail/Activity Webpage:</b>  <a href="{{ trail['url'] }}">{{ trail['url'] }}</a></li>
+                                    <li> <b class="fw-bold p-1">Trail/Activity Webpage:</b>  <a href="{{ trail['url'] }}">Click here to go to Trail/Activity Webpage</a></li>
                                     <li> <b class="fw-bold p-1">Trail/Activity Description:</b> {{ trail['shortDescription'] }}</li>
                                     <li> <b class="fw-bold p-1">Do fees apply?</b> {{ trail['doFeesApply']|title }}</li>
                                     <li> <b class="fw-bold p-1">Is a reservation required?</b> {{ trail['isReservationRequired']|title }}</li>
                                     <li> <b class="fw-bold p-1">Are pets permitted?</b>  {{ trail['arePetsPermitted']|title }}</li>
-                                    <li> <b class="fw-bold p-1">Information about Pets:</b> {{ trail['petsDescription'] }}</li>
-                                    <li> <b class="fw-bold p-1">Accessibility Information:</b>  {{ trail['accessibilityInformation'] }}</li>  
+                                    <li> <b class="fw-bold p-1" style="padding-right: 25px;">Information about Pets:</b> {{ trail['petsDescription'] }}</li>
+                                    <li> <b class="fw-bold p-1" style="padding-right: 25px;">Accessibility Information:</b>  {{ trail['accessibilityInformation'] }}</li>  
                                 </ul>
                             </div>
                         </div>
@@ -200,7 +200,7 @@ style="background-color: rgb(7, 44, 44);">
             write a note about why you want to visit this park: 
         </label>
         <input type=text cols="20" rows="5" id="park-note" name="park-note" class="note-text">
-        <div class="save-park-btn">
+        <div class="save-park-btn text-center p-3 mt-3 mb-4">
             <input type="submit" id="save-park-note" class="text-center mx-auto p-3 mt-3 mb-4" value="Save Note">
             <input type="hidden" id="park-code" name="park-code" value="{{ park_info['parkCode'] }}"> 
         </div>
