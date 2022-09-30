@@ -168,11 +168,11 @@ style="background-color: rgb(7, 44, 44);">
 <!--                FORM TO FAVORITE A PARK AS A TOP PARK                                                                             -->
 <!-- -------------------------------------------------------------------------------------------------------------------------------- -->
 
-<div class="container save-park p-3 p-sm-3 p-md-4 p-lg-5 gap-sm-5 rounded mx-auto"
+<div class="container save-park p-3 p-sm-3 p-md-4 p-lg-5 gap-sm-5 justify-content-center and align-items-center rounded mx-auto"
             style="background-color: rgb(7, 44, 44);">
 
     <form action="/bookmark-park" method="POST" class="rounded mx-auto">
-        <label for="Bookmark image-icon and button to save as a Top Park" class="p-4 text-center text-dark"></label>
+        <label for="Bookmark image-icon and button to save as a Top Park" class="p-4 text-center mx-auto"></label>
             {{ session['username']|title }}, would you like to save 
             {{ park_info['fullName'] }} to your Top Parks to Visit page?</label>
         <input type="hidden" name="park-info" value="{{ json_park_info }}">
@@ -184,14 +184,14 @@ style="background-color: rgb(7, 44, 44);">
         <!-- <button type="submit" id="save-as-top-park" class="button">Yes, Save to My Top Parks Page</button> -->
     </form>
 </div>
-
+<hr class="my-4">
 
 <!-- -------------------------------------------------------------------------------------------------------------------------------- -->
 <!--                FORM TO SAVE NOTE FOR A TOP PARK AND DIV TO DISPLAY NOTE                                                          -->
 <!-- -------------------------------------------------------------------------------------------------------------------------------- -->
 
 <div class="container p-3 p-sm-3 p-md-4 p-lg-5 gap-sm-5 justify-content-center and align-items-center rounded mx-auto"
-            style="background-color: rgb(5, 77, 77);">
+            style="background-color: rgb(7, 44, 44);">
 
     <div class="save-note rounded mx-auto">
         <label for="Form to write a note about park" class="label-text text-center p-4 fw-bold"
