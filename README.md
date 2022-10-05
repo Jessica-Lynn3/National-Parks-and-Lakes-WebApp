@@ -12,9 +12,9 @@
 
 ![Homepage-Carousel-Image-3](/static/images/Homepage-3.png)
 
-#### 	This app was built to provide National Park enthusiasts with a means to customize their next adventure based upon their needs, whether it be finding pet-friendly places, activities with no reservations required, or having access to specific accessibility information for activities where available.
+#### This app was built to provide National Park enthusiasts with a means to customize their next adventure based upon their needs, whether it be finding pet-friendly places, activities with no reservations required, or having access to specific accessibility information for activities where available.
 
-#### 	2.0 plans are in progress.  These will be implemented prior to deployment and include providing more options by working with the National Park Service API and the DOM, and installing the Google Maps API and it’s Places Library for users to further customize their next adventure.
+#### 2.0 plans are in progress.  These will be implemented prior to deployment and include: providing more options by working with the National Park Service API and the DOM, and installing the Google Maps API and it’s Places Library for users to further customize their next adventure.
 
 
 ## Table of Contents
@@ -38,13 +38,15 @@
 ##### After making a call to the API, I used Jinja templating to loop over the park data sets and render them in HTML as Bootstrap cards on the user dashboard.
 
 ![User Dashboard 1](/static/images/User-Dashboard-1.png)
+
+##### Users can scroll through Park cards . . . 
 ![User Dashboard 1](/static/images/User-Dashboard-2.png)
 
-##### Users can click on each park and explore further details provided on the park’s page.
+##### . . . and can click on each park to explore further details provided on the park’s page.
 
 ![Park Page](/static/images/Park-Page.png)
 
-##### Details include basic information about the park . . .
+##### For each park page, basic park details are displayed . . .
 
 ![Basic Park Info](/static/images/Basic-Info.png)
 
