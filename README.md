@@ -19,15 +19,17 @@
 
 ## Table of Contents
 
-### Technologies Used
-### Exploring the App
+### [Technologies Used](#technologies-used)
+### [Exploring the App](#exploring-the-app)
 
 #### Technologies Used:
-##### Python, PostgreSQL, SQLAlchemy, Flask, Jinja2, HTML, Bootstrap, CSS, JavaScript, JSON, AJAX
+##### - Python, PostgreSQL, SQLAlchemy, Flask, Jinja2, HTML, Bootstrap, CSS, JavaScript, JSON, AJAX
 
-##### So that users will always have access to the most up to date information about National Parks, all park data displayed within this app is performed via calls to the National Park Service API.
+##### - So that users will always have access to the most up to date information about National Parks, all park data displayed within this app is performed via calls to the National Park Service API.
 
 ![Tech Stack](/static/images/Tech-Stack.png)
+
+--------------
 
 #### Exploring the App
 
