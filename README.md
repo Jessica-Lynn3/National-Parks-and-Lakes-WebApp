@@ -1,20 +1,16 @@
 
-# Wilderness Awaits
-## A National Parks and Lakes Web App
+![Banner-Blue-Mountains](/static/images/Banner-Mountains.png)
+## A National Parks and Lakes Web App 
 
-![Homepage-Carousel-Image-1](/static/images/Homepage-with-Account-Login.png)
-
-#### Wilderness Awaits is a full-stack web application that allows users to find National Park trails and activities to help users decide their next adventure.  
+- Wilderness Awaits is a full-stack web application that allows users to find National Park trails and activities to help users decide their next National Park adventure. 
 
 ![Homepage-Carousel-Image-2](/static/images/Homepage-2.png)
 
-#### Users can customize their search and find trails and activities that are pet-friendly, trails and activities that do not require reservations, and find out the accessibility information for the respective trails and activities from the National Park Service API.
+- Users can customize their search and find trails and activities that are pet-friendly, trails and activities that do not require reservations, and find out the accessibility information for the respective trails and activities from the National Park Service API.
 
 ![Homepage-Carousel-Image-3](/static/images/Homepage-3.png)
 
-#### This app was built to provide National Park enthusiasts with a means to customize their next adventure based upon their needs, whether it be finding pet-friendly places, activities with no reservations required, or having access to specific accessibility information for activities where available.
-
-#### 2.0 plans are in progress.  These will be implemented prior to deployment and include: providing more options by working with the National Park Service API and the DOM, and installing the Google Maps API and it’s Places Library for users to further customize their next adventure.
+- This app was built to provide National Park enthusiasts with a means to customize their next adventure based upon their needs, whether it be finding pet-friendly places, activities with no reservations required, or having access to specific accessibility information for activities where available.
 
 --------------
 
@@ -22,6 +18,11 @@
 
 ### [Technologies Used](#technologies-used)
 ### [Exploring the App](#exploring-the-app)
+- User Registration and Login
+- User Dashboard
+- Park Page with details about park activities
+- Top Parks to Visit and Notes about Parks
+- Search Filter
 
 #### Technologies Used:
 - Python, PostgreSQL, SQLAlchemy, Flask, Jinja2, HTML, Bootstrap, CSS, JavaScript, JSON, AJAX
@@ -32,6 +33,8 @@
 --------------
 
 #### Exploring the App
+
+![Homepage-Carousel-Image-1](/static/images/Homepage-with-Account-Login.png)
 
 ##### Users are able to register for an account and login; this data is stored using a Postgres relational database.  
 
@@ -69,6 +72,10 @@
 ##### Users can easily refer back to parks they want to visit on their Top Parks Page.
 
 ![Top Parks Page](/static/images/Top-Parks-Page.png)
+
+###### 2.0 plans are in progress.  These will be implemented prior to deployment and include: providing more options by working with the National Park Service API and the DOM, and installing the Google Maps API and it’s Places Library for users to further customize their next adventure.
+
+-----------------
 
 ## About
 ### Jessica is a software engineering student in the San Francisco Bay Area.  She looks forward to beginning her journey in tech and building apps that would benefit the lives of others.
