@@ -16,6 +16,7 @@
 
 #### 2.0 plans are in progress.  These will be implemented prior to deployment and include: providing more options by working with the National Park Service API and the DOM, and installing the Google Maps API and it’s Places Library for users to further customize their next adventure.
 
+--------------
 
 ## Table of Contents
 
@@ -23,9 +24,8 @@
 ### [Exploring the App](#exploring-the-app)
 
 #### Technologies Used:
-##### - Python, PostgreSQL, SQLAlchemy, Flask, Jinja2, HTML, Bootstrap, CSS, JavaScript, JSON, AJAX
-
-##### - So that users will always have access to the most up to date information about National Parks, all park data displayed within this app is performed via calls to the National Park Service API.
+- Python, PostgreSQL, SQLAlchemy, Flask, Jinja2, HTML, Bootstrap, CSS, JavaScript, JSON, AJAX
+- So that users will always have access to the most up to date information about National Parks, all park data displayed within this app is performed via calls to the National Park Service API.
 
 ![Tech Stack](/static/images/Tech-Stack.png)
 
