@@ -69,7 +69,7 @@
 #### Saving A Park
 ##### When users save the park to their account— a request is made to my Flask server to persist the user’s saved park in the database.  Once a Top Park, users can write a note to remind them why they want to visit that park.  Notes are displayed via an AJAX request, and then stored with the user’s info in the database.
 
-![Save Park and Write Note](/static/images/Save-Park-and-Write-Note.png)
+![Save Park and Write Note](/static/images/Save-Park-and-Write-Note-2.png)
 
 #### Search Filter
 ##### With the search filter, users can also search for trails and activities within a state, to find trails and activities that are pet-friendly and do not require reservations.
