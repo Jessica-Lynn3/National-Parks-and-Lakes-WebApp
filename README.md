@@ -5,11 +5,11 @@
 - Wilderness Awaits is a full-stack web application that allows users to find National Park trails and activities to help users decide their next National Park adventure. 
 
 ![Homepage-Carousel-Image-2](/static/images/Homepage-2.png)
-##### Higlighted Features:
+#### Higlighted Features:
 - Users can customize their search and find trails and activities that are pet-friendly, trails and activities that do not require reservations, and find out the accessibility information for the respective trails and activities from the National Park Service API.
 
 ![Homepage-Carousel-Image-3](/static/images/Homepage-3.png)
-##### Purpose:
+#### Purpose:
 - This app was built to provide National Park enthusiasts with a means to customize their next adventure based upon their needs, and to provide up-to-date park information via the National Park Service API.
 
 --------------
